@@ -1,0 +1,16 @@
+@import  'styles.global.sass'
+.SubCard
+  padding: 1em
+  border: 1px solid $brightGreen
+  margin: 1em 0
+  border-radius: 5px
+  position: relative
+  animation: appear
+  animation-duration: 1s
+  overflow: hidden
+
+@keyframes appear
+  0%
+    max-height: 0px
+  100%
+    max-height: 400px
