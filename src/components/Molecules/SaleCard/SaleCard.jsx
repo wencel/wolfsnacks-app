@@ -4,46 +4,48 @@ import moment from 'moment';
 import 'moment/locale/es';
 
 import { FaDog, FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { MdPlusOne, MdPerson } from 'react-icons/md';
+import { AiOutlineDollarCircle } from 'react-icons/ai';
 
 import Card from 'components/Atoms/Card';
 import classnames from 'classnames';
-import { AiOutlineDollarCircle } from 'react-icons/ai';
 
-import Styles from './OrderCard.module.sass';
+import Styles from './SaleCard.module.sass';
 import NavigationCardHeader from 'components/Atoms/NavigationCardHeader';
 import Button from 'components/Atoms/Button';
 import { Link } from 'react-router-dom';
 import WarningModal from 'components/Organisms/WarningModal';
 import { textConstants } from 'appConstants';
 import Divider from 'components/Atoms/Divider';
+import { calculateTotalPriceProduct } from 'utils/utils';
 
-const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
+const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
   const cardClasses = classnames({
-    [Styles.OrderCard]: true,
+    [Styles.SaleCard]: true,
     [className]: className,
   });
   const [showModal, setShowModal] = useState(false);
-  const requestDeleteOrder = () => {
-    deleteOrder(order._id);
+  const requestDeleteSale = () => {
+    deleteSale(sale._id);
     setShowModal(false);
   };
-  const showDeleteOrderModal = () => {
+  const showDeleteSaleModal = () => {
     setShowModal(true);
   };
-  const hideDeleteOrderModal = () => {
+  const hideDeleteSaleModal = () => {
     setShowModal(false);
   };
   return (
     <div>
       <WarningModal
-        closeModal={hideDeleteOrderModal}
+        closeModal={hideDeleteSaleModal}
         showModal={showModal}
-        title={textConstants.orderPage.DELETE_CONFIRMATION_TITLE}
-        description={textConstants.orderPage.DELETE_CONFIRMATION}
+        title={textConstants.salePage.DELETE_CONFIRMATION_TITLE}
+        description={textConstants.salePage.DELETE_CONFIRMATION}
         showCancelButton
-        cancelAction={hideDeleteOrderModal}
+        cancelAction={hideDeleteSaleModal}
         cancelText={textConstants.misc.NO}
-        confirmationAction={requestDeleteOrder}
+        confirmationAction={requestDeleteSale}
         confirmationText={textConstants.misc.YES}
       />
       <Card
@@ -51,21 +53,24 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
         title={
           navigate ? (
             <NavigationCardHeader
-              title={`${textConstants.orderPage.ORDER} ${moment(
-                order?.createdAt
-              )
+              title={`${textConstants.salePage.SALE} ${moment(sale?.createdAt)
                 .locale('es')
                 .format('MMMM Do YYYY')}`}
-              to={`/orders/${order._id}`}
+              to={`/sales/${sale._id}`}
             />
           ) : (
-            `${textConstants.orderPage.ORDER} ${moment(order?.createdAt)
+            `${textConstants.salePage.SALE} ${moment(sale?.createdAt)
               .locale('es')
               .format('MMMM Do YYYY')}`
           )
         }
       >
-        {order?.products?.map(p => {
+        <div className={Styles.products}>
+          <MdPerson className={Styles.icon} />
+          {sale.customer?.storeName}
+        </div>
+        <Divider />
+        {sale?.products?.map(p => {
           const product = products.find(prod => prod._id === p.product);
           return (
             <div key={p.product}>
@@ -79,8 +84,12 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
                 <>
                   <div className={Styles.totalPrice}>
                     <AiOutlineDollarCircle className={Styles.icon} />
-                    <span>{textConstants.order.PRODUCT_TOTAL_PRICE}&nbsp;</span>
-                    ${p.quantity * product?.basePrice}
+                    <span>{textConstants.sale.PRODUCT_TOTAL_PRICE}&nbsp;</span>$
+                    {calculateTotalPriceProduct(
+                      product?.sellingPrice,
+                      p.quantity,
+                      sale.isThirteenDozen
+                    )}
                   </div>
                   <Divider />
                 </>
@@ -88,18 +97,34 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
             </div>
           );
         })}
+        {sale.isThirteenDozen && (
+          <div className={Styles.products}>
+            <MdPlusOne className={Styles.icon} />
+            {textConstants.sale.IS_THIRTEEN_DOZEN}
+          </div>
+        )}
         <div className={Styles.totalPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          <span>{textConstants.order.TOTAL_PRICE}&nbsp;</span>$
-          {order.totalPrice}
+          <span>{textConstants.sale.PARTIAL_PAYMENT}&nbsp;</span>$
+          {sale.partialPayment}
+        </div>
+        <div className={Styles.totalPrice}>
+          <AiOutlineDollarCircle className={Styles.icon} />
+          <span>{textConstants.sale.REMAINING_PAYMENT}&nbsp;</span>$
+          {sale.totalPrice - sale.partialPayment}
+        </div>
+        <Divider />
+        <div className={Styles.totalPrice}>
+          <AiOutlineDollarCircle className={Styles.icon} />
+          <span>{textConstants.sale.TOTAL_PRICE}&nbsp;</span>${sale.totalPrice}
         </div>
         <div className={Styles.buttonContainer}>
-          <Link to={`/orders/edit/${order._id}`}>
+          <Link to={`/sales/edit/${sale._id}`}>
             <Button theme='RoundWithLabel'>
               <FaPencilAlt />
             </Button>
           </Link>
-          <Button theme='RoundWithLabel' onClick={showDeleteOrderModal}>
+          <Button theme='RoundWithLabel' onClick={showDeleteSaleModal}>
             <FaTrashAlt />
           </Button>
         </div>
@@ -108,9 +133,9 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
   );
 };
 
-OrderCard.propTypes = {
+SaleCard.propTypes = {
   className: PropTypes.string,
-  order: PropTypes.shape({
+  sale: PropTypes.shape({
     _id: PropTypes.string,
     address: PropTypes.string,
     email: PropTypes.string,
@@ -123,4 +148,4 @@ OrderCard.propTypes = {
   navigate: PropTypes.bool,
 };
 
-export default OrderCard;
+export default SaleCard;

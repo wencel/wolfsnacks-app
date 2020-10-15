@@ -8,7 +8,6 @@ import Navbar from 'components/Organisms/Navbar';
 // import Login from 'pages/Login/Login';
 import Login from 'pages/LoginPage';
 import { userSelector } from 'reducers/user/userSelectors';
-import Sales from 'pages/SalesPage';
 import AddEditCustomerPage from 'pages/AddEditCustomerPage';
 import CustomersPage from 'pages/CustomersPage';
 import SnackBar from 'components/Atoms/SnackBar';
@@ -19,6 +18,9 @@ import AddEditProductPage from 'pages/AddEditProductPage';
 import OrdersPage from 'pages/OrdersPage';
 import AddEditOrderPage from 'pages/AddEditOrderPage';
 import OrderPage from 'pages/OrderPage';
+import SalesPage from 'pages/SalesPage';
+import AddEditSalePage from 'pages/AddEditSalePage';
+import SalePage from 'pages/SalePage';
 
 const App = () => {
   const user = useSelector(userSelector);
@@ -34,7 +36,7 @@ const App = () => {
           {!user ? <Login /> : <Redirect to='/' />}
         </Route>
         <Route path='/sales' exact>
-          {user ? <Sales /> : <Redirect to='/login' />}
+          {user ? <SalesPage /> : <Redirect to='/login' />}
         </Route>
         <Route path='/customers' exact>
           {user ? <CustomersPage /> : <Redirect to='/login' />}
@@ -70,7 +72,19 @@ const App = () => {
           {user ? <OrderPage /> : <Redirect to='/login' />}
         </Route>
         <Route path='/orders/edit/:id' exact>
-          {user ? <AddEditProductPage /> : <Redirect to='/login' />}
+          {user ? <AddEditOrderPage /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/sales' exact>
+          {user ? <SalesPage /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/sales/new' exact>
+          {user ? <AddEditSalePage /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/sales/:id' exact>
+          {user ? <SalePage /> : <Redirect to='/login' />}
+        </Route>
+        <Route path='/sales/edit/:id' exact>
+          {user ? <AddEditSalePage /> : <Redirect to='/login' />}
         </Route>
         <Route path='/'>
           <NotFound />

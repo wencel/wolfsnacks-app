@@ -22,7 +22,7 @@ const Card = ({ className, title, description, children }) => {
 Card.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 

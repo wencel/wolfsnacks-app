@@ -28,9 +28,15 @@ export const textConstants = {
       'Los campos Nombre, Presentacion y Peso no pueden ser editados',
   },
   addOrder: {
-    TITLE: 'Agregar orden',
-    ADD_ORDER: 'Agregar orden',
+    TITLE: 'Agregar pedido',
+    ADD_ORDER: 'Agregar pedido',
     ADD_PRODUCT: 'Agregar producto',
+  },
+  addSale: {
+    TITLE: 'Agregar venta',
+    ADD_SALE: 'Agregar venta',
+    ADD_PRODUCT: 'Agregar producto',
+    SEARCH_CUSTOMER: 'Buscar cliente',
   },
   editCustomer: {
     TITLE: 'Editar cliente',
@@ -39,7 +45,10 @@ export const textConstants = {
     TITLE: 'Editar producto',
   },
   editOrder: {
-    TITLE: 'Editar orden',
+    TITLE: 'Editar pedido',
+  },
+  editSale: {
+    TITLE: 'Editar venta',
   },
   customer: {
     STORE_NAME: 'Nombre de la tienda',
@@ -60,13 +69,27 @@ export const textConstants = {
     STOCK: 'Cantidad en inventario',
   },
   order: {
-    TOTAL_PRICE: 'Precio total',
-    ORDER_TOTAL_PRICE: 'Precio total de la orden',
-    PRODUCT_TOTAL_PRICE: 'Precio total por producto',
+    TOTAL_PRICE: 'Total',
+    ORDER_TOTAL_PRICE: 'Total de la pedido',
+    PRODUCT_TOTAL_PRICE: 'Total por producto',
     PRICE: 'Precio individual del producto',
     QUANTITY: 'Cantidad',
     PRODUCT: 'Producto',
     PRODUCTS: 'Productos',
+  },
+  sale: {
+    TOTAL_PRICE: 'Total',
+    SALE_TOTAL_PRICE: 'Total de la venta',
+    PRODUCT_TOTAL_PRICE: 'Total por producto',
+    PRICE: 'Precio individual del producto',
+    OWES: 'Debe',
+    IS_THIRTEEN_DOZEN: 'Docena de 13',
+    PARTIAL_PAYMENT: 'Abono',
+    REMAINING_PAYMENT: 'Saldo',
+    QUANTITY: 'Cantidad',
+    PRODUCT: 'Producto',
+    PRODUCTS: 'Productos',
+    CUSTOMER: 'Cliente',
   },
   customerPage: {
     TITLE: 'Clientes',
@@ -93,16 +116,28 @@ export const textConstants = {
     DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el producto',
   },
   orderPage: {
-    TITLE: 'Ordenes',
-    ORDER: 'Orden',
+    TITLE: 'Pedidos',
+    ORDER: 'Pedido',
     DESCRIPTION:
-      'Esta es la lista de ordenes, utiliza los filtros para ayudarte en su busqueda',
-    EMPTY_TITLE: 'No se encontraron ordenes',
+      'Esta es la lista de pedidos, utiliza los filtros para ayudarte en su busqueda',
+    EMPTY_TITLE: 'No se encontraron pedidos',
     EMPTY_DESCRIPTION:
-      'No existen ordenes con los parámetros que pusiste en los filtros, si no existe la orden que buscas puedes agregar una nueva con el botón en la parte de abajo',
-    DELETE_SUCCESS: 'La orden ha sido eliminada con exito',
-    DELETE_CONFIRMATION_TITLE: 'Eliminar orden',
-    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la orden',
+      'No existen pedidos con los parámetros que pusiste en los filtros, si no existe la pedido que buscas puedes agregar una nueva con el botón en la parte de abajo',
+    DELETE_SUCCESS: 'La pedido ha sido eliminada con exito',
+    DELETE_CONFIRMATION_TITLE: 'Eliminar pedido',
+    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la pedido',
+  },
+  salePage: {
+    TITLE: 'Ventas',
+    SALE: 'Venta',
+    DESCRIPTION:
+      'Esta es la lista de ventas, utiliza los filtros para ayudarte en su busqueda',
+    EMPTY_TITLE: 'No se encontraron ventas',
+    EMPTY_DESCRIPTION:
+      'No existen ventas con los parámetros que pusiste en los filtros, si no existe la venta que buscas puedes agregar una nueva con el botón en la parte de abajo',
+    DELETE_SUCCESS: 'La venta ha sido eliminada con exito',
+    DELETE_CONFIRMATION_TITLE: 'Eliminar venta',
+    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la venta',
   },
   misc: {
     SAVE: 'Guardar',
@@ -126,7 +161,7 @@ export const textConstants = {
   },
   navbar: {
     SALES: 'Ventas',
-    ORDERS: 'Órdenes',
+    ORDERS: 'Pedidos',
     CUSTOMERS: 'Clientes',
     PRODUCTS: 'Productos',
     LOGOUT: 'Cerrar sesión',
@@ -137,7 +172,7 @@ export const errorSuccessConstants = {
   MANDATORY_FIELDS: 'Los siguientes campos son obligatorios:',
   SAVED_CUSTOMER: 'El cliente ha sido guardado exitosamente',
   SAVED_PRODUCT: 'El producto ha sido guardado exitosamente',
-  SAVED_ORDER: 'La orden ha sido guardada exitosamente',
+  SAVED_ORDER: 'La pedido ha sido guardada exitosamente',
   NO_PRODUCT: 'Todos los productos deben tener los campos diligenciados',
   NO_QUANTITY: 'La cantidad de los productos debe ser mayor a cero',
   NO_EMPTY_PRODUCTS: 'Debe agregar al menos un producto',
@@ -178,5 +213,8 @@ export const urlConstants = {
   },
   order: {
     ORDER_URL: `${process.env.REACT_APP_API_URL}/orders`,
+  },
+  sale: {
+    SALE_URL: `${process.env.REACT_APP_API_URL}/sales`,
   },
 };

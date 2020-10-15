@@ -1,29 +1,28 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
-import Styles from './Loading.module.sass';
-import InlineLoading from '../InlineLoading';
+import Styles from './InlineLoading.module.sass';
 
-const Loading = ({ className, visible }) => {
+const InlineLoading = ({ className }) => {
   const loadingClasses = classnames({
     [className]: className,
-    [Styles.Loading]: true,
-    [Styles.visible]: visible,
+    [Styles.loadingRipple]: true,
   });
   return (
     <div className={loadingClasses}>
-      <InlineLoading />
+      <div />
+      <div />
     </div>
   );
 };
 
-Loading.defaultProps = {
+InlineLoading.defaultProps = {
   visible: true,
 };
 
-Loading.propTypes = {
+InlineLoading.propTypes = {
   className: PropTypes.string,
   visible: PropTypes.bool,
 };
 
-export default Loading;
+export default InlineLoading;

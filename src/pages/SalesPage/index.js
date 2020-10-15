@@ -1,2 +1,2 @@
-import SalesPage from './SalesPage';
+import SalesPage from './SalesContainer';
 export default SalesPage;

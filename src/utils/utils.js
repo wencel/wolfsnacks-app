@@ -28,3 +28,13 @@ export const checkObjectsDiff = (o1, o2) => {
   }, {});
   return diff;
 };
+
+export const calculateTotalPriceProduct = (
+  price,
+  quantity,
+  isThirteenDozen
+) => {
+  return (
+    price * (isThirteenDozen ? quantity - Math.floor(quantity / 13) : quantity)
+  );
+};

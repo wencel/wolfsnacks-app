@@ -132,7 +132,7 @@ const AddEditOrderPage = ({
           onSubmit={saveOrder}
         >
           <Input
-            label={textConstants.order.ORDER_TOTAL_PRICE}
+            label={textConstants.order.TOTAL_PRICE}
             type='text'
             value={localOrder.totalPrice}
             disabled
@@ -195,13 +195,6 @@ const AddEditOrderPage = ({
           ))}
         </Form>
       </Card>
-      {id && (
-        <Card
-          className={Styles.AddEditCard}
-          title={textConstants.misc.WARNING}
-          description={textConstants.addOrder.WARNING_EDIT}
-        />
-      )}
     </PageContainer>
   );
 };

@@ -12,6 +12,7 @@ import customerReducer from './customer/customerReducer';
 import miscReducer from './misc/miscReducer';
 import productReducer from './product/productReducer';
 import orderReducer from './order/orderReducer';
+import saleReducer from './sale/saleReducer';
 
 const rootPersistConfig = {
   key: 'root',
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   customer: customerReducer,
   product: productReducer,
   order: orderReducer,
+  sale: saleReducer,
   misc: miscReducer,
 });
 export default persistReducer(rootPersistConfig, rootReducer);
