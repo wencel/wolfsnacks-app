@@ -13,6 +13,11 @@ import {
 import { productsListDropdownSelector } from 'reducers/product/productSelectors';
 
 import Sales from './SalesPage';
+import { customersSelector } from 'reducers/customer/customerSelectors';
+import {
+  requestCustomersListAction,
+  resetCustomersListAction,
+} from 'reducers/customer/customerActions';
 
 const SalesPageContainer = ({
   sales,
@@ -21,6 +26,9 @@ const SalesPageContainer = ({
   requestProductsList,
   resetProductsList,
   products,
+  customers,
+  requestCustomersList,
+  resetCustomersList,
 }) => {
   return (
     <Sales
@@ -30,23 +38,30 @@ const SalesPageContainer = ({
       requestProductsList={requestProductsList}
       resetProductsList={resetProductsList}
       products={products}
+      customers={customers}
+      requestCustomersList={requestCustomersList}
+      resetCustomersList={resetCustomersList}
     />
   );
 };
 
 SalesPageContainer.propTypes = {
-  sales: PropTypes.object,
-  requestSalesList: PropTypes.func,
-  requestProductsList: PropTypes.func,
-  resetSalesList: PropTypes.func,
-  resetProductsList: PropTypes.func,
+  customers: PropTypes.object,
   products: PropTypes.array,
+  requestCustomersList: PropTypes.func,
+  requestProductsList: PropTypes.func,
+  requestSalesList: PropTypes.func,
+  resetCustomersList: PropTypes.func,
+  resetProductsList: PropTypes.func,
+  resetSalesList: PropTypes.func,
+  sales: PropTypes.object,
 };
 
 const mapStateToProps = state => {
   return {
     sales: salesSelector(state),
     products: productsListDropdownSelector(state),
+    customers: customersSelector(state),
   };
 };
 
@@ -62,6 +77,12 @@ const mapDispatchToProps = dispatch => ({
   },
   resetProductsList: () => {
     dispatch(resetProductsListAction());
+  },
+  requestCustomersList: data => {
+    dispatch(requestCustomersListAction(data));
+  },
+  resetCustomersList: () => {
+    dispatch(resetCustomersListAction());
   },
 });
 

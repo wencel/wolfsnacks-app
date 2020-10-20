@@ -12,6 +12,7 @@ import { textConstants } from 'appConstants';
 
 import Styles from './SalesPage.module.sass';
 import Loading from 'components/Atoms/Loading';
+import { customersSelector } from 'reducers/customer/customerSelectors';
 
 const SalesPage = ({
   sales,
@@ -20,10 +21,16 @@ const SalesPage = ({
   requestProductsList,
   resetProductsList,
   products,
+  customers,
+  requestCustomersList,
+  resetCustomersList,
 }) => {
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
+  const [owes, setOwes] = useState(null);
+  const [customer, setCustomer] = useState(null);
+  const [isThirteenDozen, setIsThirteenDozen] = useState(null);
 
   useEffect(() => {
     resetProductsList();
@@ -48,9 +55,18 @@ const SalesPage = ({
       salesParams.initDate = dateRange[0];
       salesParams.endDate = dateRange[1];
     }
+    if (typeof owes === 'boolean') {
+      salesParams.owes = owes;
+    }
+    if (typeof isThirteenDozen === 'boolean') {
+      salesParams.isThirteenDozen = isThirteenDozen;
+    }
+    if (customer) {
+      salesParams.customer = customer._id;
+    }
     requestSalesList(salesParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateRange, paginationLimit]);
+  }, [customer, isThirteenDozen, owes, dateRange, paginationLimit]);
   const onScrollContent = e => {
     if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
       if (!sales.loading && sales.data.data.length < sales.data.total) {
@@ -63,17 +79,41 @@ const SalesPage = ({
           salesParams.initDate = dateRange[0];
           salesParams.endDate = dateRange[1];
         }
+        if (typeof owes === 'boolean') {
+          salesParams.owes = owes;
+        }
+        if (typeof isThirteenDozen === 'boolean') {
+          salesParams.isThirteenDozen = isThirteenDozen;
+        }
+        if (customer) {
+          salesParams.customer = customer.id;
+        }
         requestSalesList(salesParams);
       }
     }
   };
   const resetFilters = () => {
     setDateRange([null, null]);
+    setOwes(null);
+    setIsThirteenDozen(null);
     setShowFiltersModal(false);
+    setCustomer(null);
   };
   const applyFilters = q => {
     setDateRange(q.dateRange);
+    setOwes(q.owes);
+    setIsThirteenDozen(q.isThirteenDozen);
+    setCustomer(q.customer);
     setShowFiltersModal(false);
+  };
+  const fetchCustomers = textQuery => {
+    resetCustomersList();
+    if (textQuery) {
+      requestCustomersList({
+        limit: 10,
+        textQuery,
+      });
+    }
   };
   return (
     <>
@@ -84,6 +124,11 @@ const SalesPage = ({
           setShowFiltersModal(false);
         }}
         parentDateRange={dateRange}
+        parentOwes={owes}
+        parentIsThirteenDozen={isThirteenDozen}
+        parentCustomer={customer}
+        fetchCustomers={fetchCustomers}
+        customers={customers}
       />
       <PageContainer onScroll={onScrollContent}>
         <Loading visible={sales.loading} />
@@ -133,6 +178,13 @@ const SalesPage = ({
 };
 
 SalesPage.propTypes = {
+  customers: PropTypes.object,
+  products: PropTypes.object,
+  requestCustomersList: PropTypes.func,
+  requestProductsList: PropTypes.func,
+  requestSalesList: PropTypes.func,
+  resetProductsList: PropTypes.func,
+  resetSalesList: PropTypes.func,
   sales: PropTypes.shape({
     data: PropTypes.shape({
       data: PropTypes.array,
@@ -141,8 +193,6 @@ SalesPage.propTypes = {
     }),
     loading: PropTypes.any,
   }),
-  requestSalesList: PropTypes.func,
-  resetSalesList: PropTypes.func,
 };
 
 export default SalesPage;

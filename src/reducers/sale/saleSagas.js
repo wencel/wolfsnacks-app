@@ -51,7 +51,7 @@ function* requestCreateEditSaleSaga(action) {
       yield delay(10);
       yield put(
         setSnackbarAction(
-          `${errorSuccessConstants.MANDATORY_FIELDS} ${textConstants.sale.TOTAL_PRICE}, ${textConstants.sale.PRODUCTS}, ${textConstants.sale.IS_THIRTEEN_DOZEN}, ${textConstants.sale.PARTIAL_PAYMENT}, ${textConstants.sale.OWES}, ${textConstants.sale.CUSTOMER}`
+          `${errorSuccessConstants.MANDATORY_FIELDS} ${textConstants.sale.TOTAL_PRICE}, ${textConstants.sale.PRODUCTS}, ${textConstants.sale.PARTIAL_PAYMENT}, ${textConstants.sale.CUSTOMER}`
         )
       );
       yield put(failureCreateEditSaleAction());
@@ -119,7 +119,8 @@ function* requestSalesListSaga(action) {
     const userToken = yield select(userTokenSelector);
     const queryParams = Object.entries(action.payload).reduce(
       (accumulator, q) => {
-        if (q[1]) return `${accumulator}${q[0]}=${q[1]}&`;
+        if (q[1] || typeof q[1] === 'boolean')
+          return `${accumulator}${q[0]}=${q[1]}&`;
         return accumulator;
       },
       '?'

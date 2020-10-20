@@ -138,6 +138,8 @@ export const textConstants = {
     DELETE_SUCCESS: 'La venta ha sido eliminada con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar venta',
     DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la venta',
+    OWES: 'Debe?',
+    IS_THIRTEEN_DOZEN: 'Es docena de 13?',
   },
   misc: {
     SAVE: 'Guardar',
@@ -145,6 +147,8 @@ export const textConstants = {
     DELETE: 'Eliminar',
     YES: 'Sí',
     NO: 'No',
+    ALL: 'Todos',
+    DATES: 'Fechas',
     WARNING: 'Advertencia',
     UNITS: 'Unidades',
     DIRECTION: 'Dirección',

@@ -191,19 +191,13 @@ const AddEditSalePage = ({
             onSelect={c => {
               setCustomer(c);
             }}
+            value={customer?.storeName}
+            valueLabel={textConstants.sale.CUSTOMER}
             itemsList={customers.data.data.map(customer => ({
               label: `${customer.storeName} (${customer.name})`,
               value: customer,
             }))}
           />
-          {customer.storeName && (
-            <Input
-              label={textConstants.sale.CUSTOMER}
-              type='text'
-              value={customer.storeName}
-              disabled
-            />
-          )}
           <Input
             label={textConstants.sale.TOTAL_PRICE}
             type='text'

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
+import { RiCloseLine } from 'react-icons/ri';
 import Styles from './SearchField.module.sass';
 import Input from '../../Atoms/Input';
 import InlineLoading from 'components/Atoms/InlineLoading';
@@ -14,6 +15,8 @@ const SearchField = ({
   isLoading,
   itemsList,
   onSelect,
+  value,
+  valueLabel,
 }) => {
   const [inputValue, setInputValue] = useState('');
   const searchFieldClasses = classnames({
@@ -33,36 +36,59 @@ const SearchField = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
   return (
-    <div className={searchFieldClasses}>
-      <Input
-        label={label}
-        type='text'
-        value={inputValue}
-        onChange={e => {
-          setInputValue(e.target.value);
-        }}
-      />
-      <div className={listClasses}>
-        {isLoading && <InlineLoading />}
-        {inputValue && itemsList.length === 0 && !isLoading && (
-          <div>No hay resultado de la busqueda</div>
+    <>
+      <div className={searchFieldClasses}>
+        <Input
+          label={label}
+          type='text'
+          value={inputValue}
+          onChange={e => {
+            setInputValue(e.target.value);
+          }}
+        />
+        {(isLoading || itemsList.length > 0 || inputValue) && (
+          <button
+            className={Styles.cancelButton}
+            type='button'
+            onClick={selectItem(null)}
+          >
+            <RiCloseLine />
+          </button>
         )}
-        {inputValue &&
-          itemsList.length > 0 &&
-          !isLoading &&
-          itemsList.map(item => (
-            <Button
-              key={idGenerator()}
-              type='button'
-              theme='Outline'
-              onClick={selectItem(item.value)}
-              className={Styles.button}
-            >
-              {item.label}
-            </Button>
-          ))}
+        <div className={listClasses}>
+          {isLoading && <InlineLoading />}
+          {inputValue && itemsList.length === 0 && !isLoading && (
+            <div>No hay resultado de la busqueda</div>
+          )}
+          {inputValue &&
+            itemsList.length > 0 &&
+            !isLoading &&
+            itemsList.map(item => (
+              <Button
+                key={idGenerator()}
+                type='button'
+                theme='Outline'
+                onClick={selectItem(item.value)}
+                className={Styles.button}
+              >
+                {item.label}
+              </Button>
+            ))}
+        </div>
       </div>
-    </div>
+      {value && (
+        <div className={Styles.relative}>
+          <Input label={valueLabel} type='text' value={value} disabled />
+          <button
+            className={Styles.cancelButton}
+            type='button'
+            onClick={selectItem(null)}
+          >
+            <RiCloseLine />
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
