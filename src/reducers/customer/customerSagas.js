@@ -39,14 +39,14 @@ function* requestLocalitiesSaga() {
 function* requestCreateEditCustomerSaga(action) {
   try {
     yield put(setCustomerLoadingAction());
-    const { storeName, address, _id: id } = action.payload;
+    const { storeName, address, phoneNumber, _id: id } = action.payload;
     delete action.payload._id;
-    if (!(storeName && address) && !id) {
+    if (!(storeName && address && phoneNumber) && !id) {
       //Wait 10 ms so the state of the reducer wil reset and show the error
       yield delay(10);
       yield put(
         setSnackbarAction(
-          `${errorSuccessConstants.MANDATORY_FIELDS} ${textConstants.customer.STORE_NAME} y ${textConstants.customer.ADDRESS}`
+          `${errorSuccessConstants.MANDATORY_FIELDS} ${textConstants.customer.STORE_NAME}, ${textConstants.customer.PHONE_NUMBER} y ${textConstants.customer.ADDRESS}`
         )
       );
       yield put(failureCreateEditCustomerAction());

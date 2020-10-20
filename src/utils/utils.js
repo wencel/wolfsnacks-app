@@ -34,7 +34,9 @@ export const calculateTotalPriceProduct = (
   quantity,
   isThirteenDozen
 ) => {
-  return (
-    price * (isThirteenDozen ? quantity - Math.floor(quantity / 13) : quantity)
-  );
+  const q = parseInt(quantity);
+  if (q) {
+    return price * (isThirteenDozen ? q - Math.floor(q / 13) : q);
+  }
+  return quantity;
 };

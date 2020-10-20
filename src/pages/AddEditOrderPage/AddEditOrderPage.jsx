@@ -134,7 +134,11 @@ const AddEditOrderPage = ({
           <Input
             label={textConstants.order.TOTAL_PRICE}
             type='text'
-            value={localOrder.totalPrice}
+            value={
+              Number.parseInt(localOrder.totalPrice)
+                ? Number.parseInt(localOrder.totalPrice)
+                : 0
+            }
             disabled
           />
           {localOrder.products.map((product, index) => (
@@ -188,7 +192,11 @@ const AddEditOrderPage = ({
               <Input
                 label={textConstants.order.PRODUCT_TOTAL_PRICE}
                 type='number'
-                value={product.totalPrice}
+                value={
+                  Number.parseInt(product.totalPrice)
+                    ? Number.parseInt(product.totalPrice)
+                    : 0
+                }
                 disabled
               />
             </SubCard>

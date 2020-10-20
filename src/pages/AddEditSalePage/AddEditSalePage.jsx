@@ -201,7 +201,11 @@ const AddEditSalePage = ({
           <Input
             label={textConstants.sale.TOTAL_PRICE}
             type='text'
-            value={localSale.totalPrice}
+            value={
+              Number.parseInt(localSale.totalPrice)
+                ? Number.parseInt(localSale.totalPrice)
+                : 0
+            }
             disabled
           />
           <Input
@@ -274,10 +278,10 @@ const AddEditSalePage = ({
                 onChange={e => {
                   updateProduct(index, {
                     ...product,
-                    quantity: Number(e.target.value),
+                    quantity: e.target.value,
                     totalPrice: calculateTotalPriceProduct(
                       product.price,
-                      Number(e.target.value),
+                      e.target.value,
                       localSale.isThirteenDozen
                     ),
                   });
@@ -292,7 +296,11 @@ const AddEditSalePage = ({
               <Input
                 label={textConstants.sale.PRODUCT_TOTAL_PRICE}
                 type='number'
-                value={product.totalPrice}
+                value={
+                  Number.parseInt(product.totalPrice)
+                    ? Number.parseInt(product.totalPrice)
+                    : 0
+                }
                 disabled
               />
             </SubCard>
