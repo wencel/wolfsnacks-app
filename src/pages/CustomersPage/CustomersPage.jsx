@@ -1,17 +1,17 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { RiFilterLine, RiFilterOffLine } from "react-icons/ri";
-import { MdPersonAdd } from "react-icons/md";
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { RiFilterLine, RiFilterOffLine } from 'react-icons/ri';
+import { MdPersonAdd } from 'react-icons/md';
 
-import Card from "components/Atoms/Card";
-import PageContainer from "components/Atoms/PageContainer";
-import CustomerCard from "components/Molecules/CustomerCard";
-import ButtonContainer from "components/Atoms/ButtonContainer";
-import CustomerFilterModal from "components/Organisms/CustomerFilterModal";
-import { textConstants } from "appConstants";
+import Card from 'components/Atoms/Card';
+import PageContainer from 'components/Atoms/PageContainer';
+import CustomerCard from 'components/Molecules/CustomerCard';
+import ButtonContainer from 'components/Atoms/ButtonContainer';
+import CustomerFilterModal from 'components/Organisms/CustomerFilterModal';
+import { textConstants } from 'appConstants';
 
-import Styles from "./CustomersPage.module.sass";
-import Loading from "components/Atoms/Loading";
+import Styles from './CustomersPage.module.sass';
+import Loading from 'components/Atoms/Loading';
 
 const CustomersPage = ({
   customers,
@@ -20,9 +20,9 @@ const CustomersPage = ({
 }) => {
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
-  const [textQuery, setTextQuery] = useState("");
-  const [sortBy, setSortBy] = useState("storeName");
-  const [direction, setDirection] = useState("asc");
+  const [textQuery, setTextQuery] = useState('');
+  const [sortBy, setSortBy] = useState('storeName');
+  const [direction, setDirection] = useState('asc');
 
   useEffect(() => {
     resetCustomersList();
@@ -44,7 +44,10 @@ const CustomersPage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textQuery, sortBy, direction, paginationLimit]);
   const onScrollContent = e => {
-    if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+    if (
+      e.target.offsetHeight + e.target.scrollTop >=
+      e.target.scrollHeight - 200
+    ) {
       if (
         !customers.loading &&
         customers.data.data.length < customers.data.total
@@ -59,9 +62,9 @@ const CustomersPage = ({
     }
   };
   const resetFilters = () => {
-    setTextQuery("");
-    setSortBy("storeName");
-    setDirection("asc");
+    setTextQuery('');
+    setSortBy('storeName');
+    setDirection('asc');
     setShowFiltersModal(false);
   };
   const applyFilters = q => {
@@ -109,7 +112,7 @@ const CustomersPage = ({
             {
               text: textConstants.addCustomer.ADD_CUSTOMER,
               icon: <MdPersonAdd />,
-              href: "/customers/new",
+              href: '/customers/new',
             },
             {
               text: textConstants.misc.FILTERS,

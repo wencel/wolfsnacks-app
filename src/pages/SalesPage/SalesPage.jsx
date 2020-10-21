@@ -12,7 +12,6 @@ import { textConstants } from 'appConstants';
 
 import Styles from './SalesPage.module.sass';
 import Loading from 'components/Atoms/Loading';
-import { customersSelector } from 'reducers/customer/customerSelectors';
 
 const SalesPage = ({
   sales,
