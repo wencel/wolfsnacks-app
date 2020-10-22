@@ -1,18 +1,19 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-import Card from "components/Atoms/Card";
-import Form from "components/Atoms/Form";
-import Input from "components/Atoms/Input";
-import PageContainer from "components/Atoms/PageContainer";
+import Card from 'components/Atoms/Card';
+import Form from 'components/Atoms/Form';
+import Input from 'components/Atoms/Input';
+import PageContainer from 'components/Atoms/PageContainer';
 
-import { textConstants } from "appConstants";
-import Styles from "./LoginPage.module.sass";
-import Checkbox from "components/Atoms/Checkbox";
+import { textConstants } from 'appConstants';
+import Styles from './LoginPage.module.sass';
+import Checkbox from 'components/Atoms/Checkbox';
+import Loading from 'components/Atoms/Loading';
 
-const LoginPage = ({ loginReguest }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginPage = ({ loginReguest, loading }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberUser, setRememberUser] = useState(false);
   const submitLogin = e => {
     e.preventDefault();
@@ -29,6 +30,7 @@ const LoginPage = ({ loginReguest }) => {
   };
   return (
     <PageContainer className={Styles.Login}>
+      {loading && <Loading />}
       <Card
         title={textConstants.login.TITLE}
         description={textConstants.login.DESCRIPTION}
