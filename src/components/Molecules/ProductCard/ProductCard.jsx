@@ -73,7 +73,7 @@ const ProductCard = ({ product, className, navigate, deleteProduct }) => {
         </div>
         <div className={Styles.weight}>
           <FaWeight className={Styles.icon} />
-          {textConstants.product.WEIGHT} {product.weight} g
+          {textConstants.product.WEIGHT} {product.weight}
         </div>
         <div className={Styles.basePrice}>
           <AiOutlineDollarCircle className={Styles.icon} />

@@ -43,6 +43,7 @@ const Input = ({
           ref={actualRef}
           onFocus={() => {
             setIsFocused(true);
+            actualRef.current.click();
           }}
           onBlur={() => {
             setIsFocused(false);

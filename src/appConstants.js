@@ -63,7 +63,7 @@ export const textConstants = {
   product: {
     NAME: 'Nombre',
     PRESENTATION: 'Presentación',
-    WEIGHT: 'Peso',
+    WEIGHT: 'Peso (g)',
     BASE_PRICE: 'Precio base',
     SELLING_PRICE: 'Precio de venta',
     STOCK: 'Cantidad en inventario',
@@ -125,7 +125,7 @@ export const textConstants = {
       'No existen pedidos con los parámetros que pusiste en los filtros, si no existe la pedido que buscas puedes agregar una nueva con el botón en la parte de abajo',
     DELETE_SUCCESS: 'La pedido ha sido eliminada con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar pedido',
-    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la pedido',
+    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el pedido',
   },
   salePage: {
     TITLE: 'Ventas',

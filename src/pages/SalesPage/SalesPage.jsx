@@ -51,8 +51,8 @@ const SalesPage = ({
       skip: 0,
     };
     if (dateRange[0] && dateRange[1]) {
-      salesParams.initDate = dateRange[0];
-      salesParams.endDate = dateRange[1];
+      salesParams.initDate = dateRange[0]?.toISOString();
+      salesParams.endDate = dateRange[1]?.toISOString();
     }
     if (typeof owes === 'boolean') {
       salesParams.owes = owes;
@@ -75,8 +75,8 @@ const SalesPage = ({
           skip: sales.data.skip + paginationLimit,
         };
         if (dateRange[0] && dateRange[1]) {
-          salesParams.initDate = dateRange[0];
-          salesParams.endDate = dateRange[1];
+          salesParams.initDate = dateRange[0]?.toISOString();
+          salesParams.endDate = dateRange[1]?.toISOString();
         }
         if (typeof owes === 'boolean') {
           salesParams.owes = owes;

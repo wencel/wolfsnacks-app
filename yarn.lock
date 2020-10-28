@@ -9393,7 +9393,7 @@ react-calendar@^3.0.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-date-picker@^8.0.0:
+react-date-picker@^8.0.0, react-date-picker@^8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.0.3.tgz#6814e3b5f8ce0ffa9e12bbc932ab852389c56b11"
   integrity sha512-X6uy0VSgW9uqYk2IaB8Y+a7IRD8JBY0Pl9kwxWepp838+ykcy/roXKZUEuW7VYQ+QUy3Vo5zUEKmeUxo56sw/A==

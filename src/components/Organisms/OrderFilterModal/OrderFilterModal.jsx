@@ -50,6 +50,7 @@ const OrderFilterModal = ({
             maxDate={new Date()}
             locale='es-CO'
             className={Styles.dateRangePicker}
+            calendarClassName={Styles.dateRangePickerCalendar}
           />
         </Form>
       </Card>

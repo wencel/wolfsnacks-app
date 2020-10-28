@@ -41,7 +41,15 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
         closeModal={hideDeleteSaleModal}
         showModal={showModal}
         title={textConstants.salePage.DELETE_CONFIRMATION_TITLE}
-        description={textConstants.salePage.DELETE_CONFIRMATION}
+        description={
+          <>
+            {textConstants.salePage.DELETE_CONFIRMATION}{' '}
+            <b>
+              <i>{sale?._id}</i>
+            </b>
+            ?
+          </>
+        }
         showCancelButton
         cancelAction={hideDeleteSaleModal}
         cancelText={textConstants.misc.NO}
@@ -67,7 +75,8 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
       >
         <div className={Styles.products}>
           <MdPerson className={Styles.icon} />
-          {sale.customer?.storeName}
+          {sale.customer?.storeName}{' '}
+          {sale.customer?.name ? `(${sale.customer?.name})` : ''}
         </div>
         <Divider />
         {sale?.products?.map(p => {

@@ -39,7 +39,15 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
         closeModal={hideDeleteOrderModal}
         showModal={showModal}
         title={textConstants.orderPage.DELETE_CONFIRMATION_TITLE}
-        description={textConstants.orderPage.DELETE_CONFIRMATION}
+        description={
+          <>
+            {textConstants.orderPage.DELETE_CONFIRMATION}{' '}
+            <b>
+              <i>{order?._id}</i>
+            </b>
+            ?
+          </>
+        }
         showCancelButton
         cancelAction={hideDeleteOrderModal}
         cancelText={textConstants.misc.NO}

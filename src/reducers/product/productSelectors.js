@@ -39,7 +39,7 @@ export const productsListDropdownSelector = createSelector(
       ...state.products.data.data.map(p => ({
         ...p,
         value: p._id,
-        label: `${p.name} ${p.presentation} ${p.weight}g`,
+        label: `${p.name} ${p.presentation} ${p.weight} g`,
       })),
     ];
   }

@@ -46,8 +46,8 @@ const OrdersPage = ({
       skip: 0,
     };
     if (dateRange[0] && dateRange[1]) {
-      ordersParams.initDate = dateRange[0];
-      ordersParams.endDate = dateRange[1];
+      ordersParams.initDate = dateRange[0]?.toISOString();
+      ordersParams.endDate = dateRange[1]?.toISOString();
     }
     requestOrdersList(ordersParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,8 +61,8 @@ const OrdersPage = ({
           skip: orders.data.skip + paginationLimit,
         };
         if (dateRange[0] && dateRange[1]) {
-          ordersParams.initDate = dateRange[0];
-          ordersParams.endDate = dateRange[1];
+          ordersParams.initDate = dateRange[0]?.toISOString();
+          ordersParams.endDate = dateRange[1]?.toISOString();
         }
         requestOrdersList(ordersParams);
       }

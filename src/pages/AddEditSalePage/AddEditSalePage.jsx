@@ -191,10 +191,18 @@ const AddEditSalePage = ({
             onSelect={c => {
               setCustomer(c);
             }}
-            value={customer?.storeName}
+            value={
+              customer.storeName
+                ? `${customer.storeName} ${
+                    customer.name ? `(${customer.name})` : ''
+                  }`
+                : null
+            }
             valueLabel={textConstants.sale.CUSTOMER}
             itemsList={customers.data.data.map(customer => ({
-              label: `${customer.storeName} (${customer.name})`,
+              label: `${customer.storeName} ${
+                customer.name ? `(${customer.name})` : ''
+              }`,
               value: customer,
             }))}
           />
@@ -278,7 +286,7 @@ const AddEditSalePage = ({
                 onChange={e => {
                   updateProduct(index, {
                     ...product,
-                    quantity: e.target.value,
+                    quantity: parseInt(e.target.value),
                     totalPrice: calculateTotalPriceProduct(
                       product.price,
                       e.target.value,
