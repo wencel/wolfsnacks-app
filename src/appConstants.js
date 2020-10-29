@@ -122,8 +122,8 @@ export const textConstants = {
       'Esta es la lista de pedidos, utiliza los filtros para ayudarte en su busqueda',
     EMPTY_TITLE: 'No se encontraron pedidos',
     EMPTY_DESCRIPTION:
-      'No existen pedidos con los parámetros que pusiste en los filtros, si no existe la pedido que buscas puedes agregar una nueva con el botón en la parte de abajo',
-    DELETE_SUCCESS: 'La pedido ha sido eliminada con exito',
+      'No existen pedidos con los parámetros que pusiste en los filtros, si no existe el pedido que buscas puedes agregar uno nuevo con el botón en la parte de abajo',
+    DELETE_SUCCESS: 'El pedido ha sido eliminado con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar pedido',
     DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el pedido #',
   },
