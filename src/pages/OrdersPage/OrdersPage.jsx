@@ -53,7 +53,10 @@ const OrdersPage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateRange, paginationLimit]);
   const onScrollContent = e => {
-    if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+    if (
+      e.target.offsetHeight + e.target.scrollTop >=
+      e.target.scrollHeight - 200
+    ) {
       if (!orders.loading && orders.data.data.length < orders.data.total) {
         const ordersParams = {
           sortBy: 'orderDate',

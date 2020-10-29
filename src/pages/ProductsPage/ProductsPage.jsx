@@ -41,7 +41,10 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textQuery, sortBy, direction, paginationLimit]);
   const onScrollContent = e => {
-    if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+    if (
+      e.target.offsetHeight + e.target.scrollTop >=
+      e.target.scrollHeight - 200
+    ) {
       if (
         !products.loading &&
         products.data.data.length < products.data.total

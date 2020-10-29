@@ -67,7 +67,10 @@ const SalesPage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer, isThirteenDozen, owes, dateRange, paginationLimit]);
   const onScrollContent = e => {
-    if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+    if (
+      e.target.offsetHeight + e.target.scrollTop >=
+      e.target.scrollHeight - 200
+    ) {
       if (!sales.loading && sales.data.data.length < sales.data.total) {
         const salesParams = {
           sortBy: 'saleDate',
