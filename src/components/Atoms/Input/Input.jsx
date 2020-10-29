@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import Styles from './Input.module.sass';
 import classnames from 'classnames';
+import NumberFormat from 'react-number-format';
 
 const Input = ({
   options,
@@ -15,7 +16,7 @@ const Input = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
-  const actualRef = ref ? ref : inputRef;
+  let actualRef = ref ? ref : inputRef;
   const inputClasses = classnames({
     [className]: className,
     [Styles.Input]: true,
@@ -77,7 +78,25 @@ const Input = ({
           {...restProps}
         />
       )}
-      {!['select', 'textarea'].includes(type) && (
+      {type === 'number' && (
+        <NumberFormat
+          getInputRef={el => (actualRef.current = el)}
+          onFocus={() => {
+            setIsFocused(true);
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+          }}
+          id={id}
+          value={value}
+          {...restProps}
+          thousandSeparator='.'
+          decimalSeparator=','
+          isNumericString={true}
+        />
+      )}
+
+      {!['select', 'textarea', 'number'].includes(type) && (
         <input
           ref={actualRef}
           onFocus={() => {

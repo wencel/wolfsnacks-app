@@ -6,6 +6,7 @@ import 'moment/locale/es';
 import { FaDog, FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import { MdPlusOne, MdPerson } from 'react-icons/md';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
+import { BiCalendarAlt } from 'react-icons/bi';
 
 import Card from 'components/Atoms/Card';
 import classnames from 'classnames';
@@ -18,6 +19,7 @@ import WarningModal from 'components/Organisms/WarningModal';
 import { textConstants } from 'appConstants';
 import Divider from 'components/Atoms/Divider';
 import { calculateTotalPriceProduct } from 'utils/utils';
+import NumberFormat from 'react-number-format';
 
 const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
   const cardClasses = classnames({
@@ -25,6 +27,7 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
     [className]: className,
   });
   const [showModal, setShowModal] = useState(false);
+  const saleDate = moment(sale?.saleDate).locale('es').format('MMMM Do YYYY');
   const requestDeleteSale = () => {
     deleteSale(sale._id);
     setShowModal(false);
@@ -45,7 +48,11 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
           <>
             {textConstants.salePage.DELETE_CONFIRMATION}{' '}
             <b>
-              <i>{sale?._id}</i>
+              <i>{sale?.saleDate}</i>
+            </b>{' '}
+            del{' '}
+            <b>
+              <i>{saleDate}</i>
             </b>
             ?
           </>
@@ -61,18 +68,36 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
         title={
           navigate ? (
             <NavigationCardHeader
-              title={`${textConstants.salePage.SALE} ${moment(sale?.createdAt)
-                .locale('es')
-                .format('MMMM Do YYYY')}`}
+              title={
+                <>
+                  {textConstants.salePage.SALE}{' '}
+                  <NumberFormat
+                    value={sale.orderId}
+                    displayType={'text'}
+                    thousandSeparator='.'
+                    decimalSeparator=','
+                  />
+                </>
+              }
               to={`/sales/${sale._id}`}
             />
           ) : (
-            `${textConstants.salePage.SALE} ${moment(sale?.createdAt)
-              .locale('es')
-              .format('MMMM Do YYYY')}`
+            <>
+              {textConstants.salePage.SALE}{' '}
+              <NumberFormat
+                value={sale.orderId}
+                displayType={'text'}
+                thousandSeparator='.'
+                decimalSeparator=','
+              />
+            </>
           )
         }
       >
+        <div className={Styles.date}>
+          <BiCalendarAlt className={Styles.icon} />
+          {saleDate}
+        </div>
         <div className={Styles.products}>
           <MdPerson className={Styles.icon} />
           {sale.customer?.storeName}{' '}
@@ -85,20 +110,38 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
             <div key={p.product}>
               <div className={Styles.products}>
                 <FaDog className={Styles.icon} />
-                {`${product?.name} ${product?.presentation} ${product?.weight} g`}
+                {`${product?.name} ${product?.presentation}`}
                 &nbsp;
-                <span>({`${p.quantity} ${textConstants.misc.UNITS}`})</span>
+                <NumberFormat
+                  value={product?.weight}
+                  displayType={'text'}
+                  suffix='g'
+                  thousandSeparator='.'
+                  decimalSeparator=','
+                />
+                &nbsp;
+                <span className={Styles.span}>
+                  ({`${p.quantity} ${textConstants.misc.UNITS}`})
+                </span>
               </div>
               {!navigate && (
                 <>
                   <div className={Styles.totalPrice}>
                     <AiOutlineDollarCircle className={Styles.icon} />
-                    <span>{textConstants.sale.PRODUCT_TOTAL_PRICE}&nbsp;</span>$
-                    {calculateTotalPriceProduct(
-                      product?.sellingPrice,
-                      p.quantity,
-                      sale.isThirteenDozen
-                    )}
+                    <span className={Styles.span}>
+                      {textConstants.sale.PRODUCT_TOTAL_PRICE}&nbsp;
+                    </span>
+                    <NumberFormat
+                      value={calculateTotalPriceProduct(
+                        product?.sellingPrice,
+                        p.quantity,
+                        sale.isThirteenDozen
+                      )}
+                      displayType={'text'}
+                      prefix='$'
+                      thousandSeparator='.'
+                      decimalSeparator=','
+                    />
                   </div>
                   <Divider />
                 </>
@@ -114,18 +157,43 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
         )}
         <div className={Styles.totalPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          <span>{textConstants.sale.PARTIAL_PAYMENT}&nbsp;</span>$
-          {sale.partialPayment}
+          <span className={Styles.span}>
+            {textConstants.sale.PARTIAL_PAYMENT}&nbsp;
+          </span>
+          <NumberFormat
+            value={sale.partialPayment}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <div className={Styles.totalPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          <span>{textConstants.sale.REMAINING_PAYMENT}&nbsp;</span>$
-          {sale.totalPrice - sale.partialPayment}
+          <span className={Styles.span}>
+            {textConstants.sale.REMAINING_PAYMENT}&nbsp;
+          </span>
+          <NumberFormat
+            value={sale.totalPrice - sale.partialPayment}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <Divider />
         <div className={Styles.totalPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          <span>{textConstants.sale.TOTAL_PRICE}&nbsp;</span>${sale.totalPrice}
+          <span className={Styles.span}>
+            {textConstants.sale.TOTAL_PRICE}&nbsp;
+          </span>
+          <NumberFormat
+            value={sale.totalPrice}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <div className={Styles.buttonContainer}>
           <Link to={`/sales/edit/${sale._id}`}>

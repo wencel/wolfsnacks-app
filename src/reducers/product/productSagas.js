@@ -101,7 +101,6 @@ function* requestCreateEditProductSaga(action) {
 }
 
 function* requestProductsListSaga(action) {
-  console.log(action);
   try {
     yield put(setProductsLoadingAction());
     const userToken = yield select(userTokenSelector);

@@ -34,14 +34,14 @@ const OrdersPage = ({
     resetOrdersList();
     requestOrdersList({
       limit: paginationLimit,
-      sortBy: 'createdAt',
+      sortBy: 'orderDate',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     resetOrdersList();
     const ordersParams = {
-      sortBy: 'createdAt',
+      sortBy: 'orderDate',
       limit: paginationLimit,
       skip: 0,
     };
@@ -56,7 +56,7 @@ const OrdersPage = ({
     if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
       if (!orders.loading && orders.data.data.length < orders.data.total) {
         const ordersParams = {
-          sortBy: 'createdAt:desc',
+          sortBy: 'orderDate',
           limit: paginationLimit,
           skip: orders.data.skip + paginationLimit,
         };

@@ -17,7 +17,7 @@ const NavigationCardHeader = ({ title, ...restProps }) => {
 };
 
 NavigationCardHeader.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export default NavigationCardHeader;

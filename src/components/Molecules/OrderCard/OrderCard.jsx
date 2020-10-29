@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import NumberFormat from 'react-number-format';
 import moment from 'moment';
 import 'moment/locale/es';
 
 import { FaDog, FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import { BiCalendarAlt } from 'react-icons/bi';
 
 import Card from 'components/Atoms/Card';
 import classnames from 'classnames';
@@ -23,6 +25,9 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
     [className]: className,
   });
   const [showModal, setShowModal] = useState(false);
+  const orderDate = moment(order?.orderDate)
+    .locale('es')
+    .format('MMMM Do YYYY');
   const requestDeleteOrder = () => {
     deleteOrder(order._id);
     setShowModal(false);
@@ -43,7 +48,11 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
           <>
             {textConstants.orderPage.DELETE_CONFIRMATION}{' '}
             <b>
-              <i>{order?._id}</i>
+              <i>{order?.orderId}</i>
+            </b>{' '}
+            del{' '}
+            <b>
+              <i>{orderDate}</i>
             </b>
             ?
           </>
@@ -59,36 +68,70 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
         title={
           navigate ? (
             <NavigationCardHeader
-              title={`${textConstants.orderPage.ORDER} ${moment(
-                order?.createdAt
-              )
-                .locale('es')
-                .format('MMMM Do YYYY')}`}
+              title={
+                <>
+                  {textConstants.orderPage.ORDER}{' '}
+                  <NumberFormat
+                    value={order.orderId}
+                    displayType={'text'}
+                    thousandSeparator='.'
+                    decimalSeparator=','
+                  />
+                </>
+              }
               to={`/orders/${order._id}`}
             />
           ) : (
-            `${textConstants.orderPage.ORDER} ${moment(order?.createdAt)
-              .locale('es')
-              .format('MMMM Do YYYY')}`
+            <>
+              {textConstants.orderPage.ORDER}{' '}
+              <NumberFormat
+                value={order.orderId}
+                displayType={'text'}
+                thousandSeparator='.'
+                decimalSeparator=','
+              />
+            </>
           )
         }
       >
+        <div className={Styles.date}>
+          <BiCalendarAlt className={Styles.icon} />
+          {orderDate}
+        </div>
         {order?.products?.map(p => {
           const product = products.find(prod => prod._id === p.product);
           return (
             <div key={p.product}>
               <div className={Styles.products}>
                 <FaDog className={Styles.icon} />
-                {`${product?.name} ${product?.presentation} ${product?.weight} g`}
+                {`${product?.name} ${product?.presentation}`}
                 &nbsp;
-                <span>({`${p.quantity} ${textConstants.misc.UNITS}`})</span>
+                <NumberFormat
+                  value={product?.weight}
+                  displayType={'text'}
+                  suffix='g'
+                  thousandSeparator='.'
+                  decimalSeparator=','
+                />
+                &nbsp;
+                <span className={Styles.spanl}>
+                  ({`${p.quantity} ${textConstants.misc.UNITS}`})
+                </span>
               </div>
               {!navigate && (
                 <>
                   <div className={Styles.totalPrice}>
                     <AiOutlineDollarCircle className={Styles.icon} />
-                    <span>{textConstants.order.PRODUCT_TOTAL_PRICE}&nbsp;</span>
-                    ${p.quantity * product?.basePrice}
+                    <span className={Styles.spanl}>
+                      {textConstants.order.PRODUCT_TOTAL_PRICE}&nbsp;
+                    </span>
+                    <NumberFormat
+                      value={p.quantity * product?.basePrice}
+                      displayType={'text'}
+                      prefix='$'
+                      thousandSeparator='.'
+                      decimalSeparator=','
+                    />
                   </div>
                   <Divider />
                 </>
@@ -98,8 +141,16 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
         })}
         <div className={Styles.totalPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          <span>{textConstants.order.TOTAL_PRICE}&nbsp;</span>$
-          {order.totalPrice}
+          <span className={Styles.spanl}>
+            {textConstants.order.TOTAL_PRICE}&nbsp;
+          </span>
+          <NumberFormat
+            value={order.totalPrice}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <div className={Styles.buttonContainer}>
           <Link to={`/orders/edit/${order._id}`}>

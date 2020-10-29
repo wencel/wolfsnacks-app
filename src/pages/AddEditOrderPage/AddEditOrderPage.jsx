@@ -14,6 +14,7 @@ import Styles from './AddEditOrderPage.module.sass';
 import Button from 'components/Atoms/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 import SubCard from 'components/Atoms/SubCard';
+import Calendar from 'components/Atoms/Calendar';
 
 const AddEditOrderPage = ({
   order,
@@ -29,14 +30,15 @@ const AddEditOrderPage = ({
 
   const [localOrder, setLocalOrder] = useState({
     totalPrice: 0,
+    orderDate: new Date(),
     products: [],
     _id: '',
   });
 
   const saveOrder = e => {
     e.preventDefault();
-    const { createdAt, updatedAt, user, __v, ...rest } = localOrder;
-    createEditOrder(rest);
+    const { createdAt, updatedAt, user, __v, orderId, ...rest } = localOrder;
+    createEditOrder({ ...rest, orderDate: rest.orderDate.toISOString() });
   };
 
   const updateProduct = (index, product) => {
@@ -82,7 +84,11 @@ const AddEditOrderPage = ({
 
   useEffect(() => {
     if (order?.data) {
-      setLocalOrder({ ...localOrder, ...order.data });
+      setLocalOrder({
+        ...localOrder,
+        ...order.data,
+        orderDate: new Date(order.data.orderDate),
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order]);
@@ -133,13 +139,24 @@ const AddEditOrderPage = ({
         >
           <Input
             label={textConstants.order.TOTAL_PRICE}
-            type='text'
+            prefix='$'
+            type='number'
             value={
               Number.parseInt(localOrder.totalPrice)
                 ? Number.parseInt(localOrder.totalPrice)
                 : 0
             }
             disabled
+          />
+          <Calendar
+            isRange={false}
+            onChange={value => {
+              setLocalOrder({
+                ...localOrder,
+                orderDate: value,
+              });
+            }}
+            value={localOrder.orderDate}
           />
           {localOrder.products.map((product, index) => (
             <SubCard key={`${product._id}${index}`}>
@@ -174,23 +191,24 @@ const AddEditOrderPage = ({
                 label={textConstants.order.QUANTITY}
                 type='number'
                 value={product.quantity}
-                onChange={e => {
-                  console.log(product);
+                onValueChange={e => {
                   updateProduct(index, {
                     ...product,
-                    quantity: e.target.value,
-                    totalPrice: product.price * e.target.value,
+                    quantity: e.floatValue,
+                    totalPrice: product.price * e.floatValue,
                   });
                 }}
               />
               <Input
                 label={textConstants.order.PRICE}
+                prefix='$'
                 type='number'
                 value={product.price}
                 disabled
               />
               <Input
                 label={textConstants.order.PRODUCT_TOTAL_PRICE}
+                prefix='$'
                 type='number'
                 value={
                   Number.parseInt(product.totalPrice)
@@ -220,9 +238,7 @@ AddEditOrderPage.propTypes = {
     loading: PropTypes.bool,
     success: PropTypes.string,
   }),
-  products: PropTypes.shape({
-    find: PropTypes.func,
-  }),
+  products: PropTypes.array,
   requestProductsList: PropTypes.func,
   resetProductsList: PropTypes.func,
 };

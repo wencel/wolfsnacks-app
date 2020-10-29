@@ -39,14 +39,14 @@ const SalesPage = ({
     resetSalesList();
     requestSalesList({
       limit: paginationLimit,
-      sortBy: 'createdAt',
+      sortBy: 'saleDate',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     resetSalesList();
     const salesParams = {
-      sortBy: 'createdAt',
+      sortBy: 'saleDate',
       limit: paginationLimit,
       skip: 0,
     };
@@ -70,7 +70,7 @@ const SalesPage = ({
     if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
       if (!sales.loading && sales.data.data.length < sales.data.total) {
         const salesParams = {
-          sortBy: 'createdAt:desc',
+          sortBy: 'saleDate',
           limit: paginationLimit,
           skip: sales.data.skip + paginationLimit,
         };
@@ -178,7 +178,7 @@ const SalesPage = ({
 
 SalesPage.propTypes = {
   customers: PropTypes.object,
-  products: PropTypes.object,
+  products: PropTypes.array,
   requestCustomersList: PropTypes.func,
   requestProductsList: PropTypes.func,
   requestSalesList: PropTypes.func,

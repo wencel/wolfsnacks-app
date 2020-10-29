@@ -17,6 +17,7 @@ import SubCard from 'components/Atoms/SubCard';
 import Checkbox from 'components/Atoms/Checkbox/Checkbox';
 import SearchField from 'components/Molecules/SearchField';
 import { calculateTotalPriceProduct } from 'utils/utils';
+import Calendar from 'components/Atoms/Calendar';
 
 const AddEditSalePage = ({
   sale,
@@ -37,16 +38,17 @@ const AddEditSalePage = ({
     totalPrice: 0,
     isThirteenDozen: false,
     owes: false,
-    partialPayment: 0,
+    partialPayment: '',
     products: [],
     customer: '',
+    saleDate: new Date(),
     _id: '',
   });
 
   const saveSale = e => {
     e.preventDefault();
-    const { createdAt, updatedAt, user, __v, ...rest } = localSale;
-    createEditSale(rest);
+    const { createdAt, updatedAt, user, __v, saleId, ...rest } = localSale;
+    createEditSale({ ...rest, saleDate: rest.saleDate.toISOString() });
   };
 
   const updateProduct = (index, product) => {
@@ -123,6 +125,7 @@ const AddEditSalePage = ({
         ...localSale,
         ...sale.data,
         customer: sale.data.customer._id,
+        saleDate: new Date(sale.data.saleDate),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -158,6 +161,7 @@ const AddEditSalePage = ({
   }, [customer]);
 
   useEffect(() => {
+    console.log(localSale.partialPayment);
     const owes = localSale.partialPayment < localSale.totalPrice;
     setLocalSale({
       ...localSale,
@@ -208,7 +212,8 @@ const AddEditSalePage = ({
           />
           <Input
             label={textConstants.sale.TOTAL_PRICE}
-            type='text'
+            type='number'
+            prefix='$'
             value={
               Number.parseInt(localSale.totalPrice)
                 ? Number.parseInt(localSale.totalPrice)
@@ -218,14 +223,25 @@ const AddEditSalePage = ({
           />
           <Input
             label={textConstants.sale.PARTIAL_PAYMENT}
+            prefix='$'
             type='number'
             value={localSale.partialPayment}
-            onChange={e => {
+            onValueChange={e => {
               setLocalSale({
                 ...localSale,
-                partialPayment: e.target.value,
+                partialPayment: e.floatValue,
               });
             }}
+          />
+          <Calendar
+            isRange={false}
+            onChange={value => {
+              setLocalSale({
+                ...localSale,
+                saleDate: value,
+              });
+            }}
+            value={localSale.saleDate}
           />
           <div className={Styles.checkbox}>
             <Checkbox
@@ -282,14 +298,14 @@ const AddEditSalePage = ({
               <Input
                 label={textConstants.sale.QUANTITY}
                 type='number'
-                value={product.quantity}
-                onChange={e => {
+                value={product.quantity ? product.quantity : ''}
+                onValueChange={e => {
                   updateProduct(index, {
                     ...product,
-                    quantity: parseInt(e.target.value),
+                    quantity: e.floatValue,
                     totalPrice: calculateTotalPriceProduct(
                       product.price,
-                      e.target.value,
+                      e.floatValue,
                       localSale.isThirteenDozen
                     ),
                   });
@@ -297,12 +313,14 @@ const AddEditSalePage = ({
               />
               <Input
                 label={textConstants.sale.PRICE}
+                prefix='$'
                 type='number'
                 value={product.price}
                 disabled
               />
               <Input
                 label={textConstants.sale.PRODUCT_TOTAL_PRICE}
+                prefix='$'
                 type='number'
                 value={
                   Number.parseInt(product.totalPrice)
@@ -322,9 +340,7 @@ const AddEditSalePage = ({
 AddEditSalePage.propTypes = {
   createEditSale: PropTypes.func,
   fetchSale: PropTypes.func,
-  products: PropTypes.shape({
-    find: PropTypes.func,
-  }),
+  products: PropTypes.array,
   requestCustomersList: PropTypes.func,
   requestProductsList: PropTypes.func,
   resetCustomersList: PropTypes.func,

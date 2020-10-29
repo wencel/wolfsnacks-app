@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import Modal from 'components/Organisms/Modal';
 import Card from 'components/Atoms/Card';
 import Form from 'components/Atoms/Form';
 import Styles from './OrderFilterModal.module.sass';
 import { textConstants } from 'appConstants';
+import Calendar from 'components/Atoms/Calendar';
 
 const OrderFilterModal = ({
   closeModal,
@@ -44,13 +44,10 @@ const OrderFilterModal = ({
           }}
           showButtonOnForm
         >
-          <DateRangePicker
+          <Calendar
             onChange={setDateRange}
             value={dateRange}
             maxDate={new Date()}
-            locale='es-CO'
-            className={Styles.dateRangePicker}
-            calendarClassName={Styles.dateRangePickerCalendar}
           />
         </Form>
       </Card>

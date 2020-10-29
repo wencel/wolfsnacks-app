@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 import Modal from 'components/Organisms/Modal';
 import Card from 'components/Atoms/Card';
@@ -10,6 +9,7 @@ import { textConstants } from 'appConstants';
 import Radio from 'components/Atoms/Radio';
 import Label from 'components/Atoms/Label';
 import SearchField from 'components/Molecules/SearchField/SearchField';
+import Calendar from 'components/Atoms/Calendar';
 
 const SaleFilterModal = ({
   closeModal,
@@ -88,12 +88,10 @@ const SaleFilterModal = ({
           showButtonOnForm
         >
           <Label className={Styles.label}>{textConstants.misc.DATES}</Label>
-          <DateRangePicker
+          <Calendar
             onChange={setDateRange}
             value={dateRange}
             maxDate={new Date()}
-            locale='es-CO'
-            className={Styles.dateRangePicker}
           />
           <SearchField
             onSearch={fetchCustomers}
@@ -176,9 +174,7 @@ SaleFilterModal.propTypes = {
   closeModal: PropTypes.func,
   customers: PropTypes.shape({
     data: PropTypes.shape({
-      data: PropTypes.shape({
-        map: PropTypes.func,
-      }),
+      data: PropTypes.array,
     }),
     loading: PropTypes.any,
   }),
