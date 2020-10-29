@@ -56,6 +56,7 @@ export const textConstants = {
     ADDRESS: 'Dirección',
     EMAIL: 'Correo electrónico',
     PHONE_NUMBER: 'Numero telefónico',
+    SECONDARY_PHONE_NUMBER: 'Numero telefónico alternativo',
     LOCALITY: 'Localidad',
     TOWN: 'Barrio',
     ID_NUMBER: 'Cedula o NIT',
@@ -63,7 +64,7 @@ export const textConstants = {
   product: {
     NAME: 'Nombre',
     PRESENTATION: 'Presentación',
-    WEIGHT: 'Peso (g)',
+    WEIGHT: 'Peso',
     BASE_PRICE: 'Precio base',
     SELLING_PRICE: 'Precio de venta',
     STOCK: 'Cantidad en inventario',

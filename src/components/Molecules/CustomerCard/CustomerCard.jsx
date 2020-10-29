@@ -18,6 +18,7 @@ import Button from 'components/Atoms/Button';
 import { Link } from 'react-router-dom';
 import WarningModal from 'components/Organisms/WarningModal';
 import { textConstants } from 'appConstants';
+import NumberFormat from 'react-number-format';
 
 const CustomerCard = ({ customer, className, navigate, deleteCustomer }) => {
   const cardClasses = classnames({
@@ -87,7 +88,12 @@ const CustomerCard = ({ customer, className, navigate, deleteCustomer }) => {
         {customer.idNumber ? (
           <div className={Styles.idNumber}>
             <MdCreditCard className={Styles.icon} />
-            {customer.idNumber}
+            <NumberFormat
+              value={customer.idNumber}
+              displayType={'text'}
+              thousandSeparator='.'
+              decimalSeparator=','
+            />
           </div>
         ) : (
           ''
@@ -103,7 +109,27 @@ const CustomerCard = ({ customer, className, navigate, deleteCustomer }) => {
         {customer.phoneNumber ? (
           <div className={Styles.phoneNumber}>
             <MdPhone className={Styles.icon} />
-            <a href={`tel:${customer.phoneNumber}`}>{customer.phoneNumber}</a>
+            <a href={`tel:${customer.phoneNumber}`}>
+              <NumberFormat
+                value={customer.phoneNumber}
+                displayType={'text'}
+                format='(###)-###-####'
+              />
+            </a>
+          </div>
+        ) : (
+          ''
+        )}
+        {customer.secondaryPhoneNumber ? (
+          <div className={Styles.phoneNumber}>
+            <MdPhone className={Styles.icon} />
+            <a href={`tel:${customer.secondaryPhoneNumber}`}>
+              <NumberFormat
+                value={customer.secondaryPhoneNumber}
+                displayType={'text'}
+                format='(###)-###-####'
+              />
+            </a>
           </div>
         ) : (
           ''
@@ -132,6 +158,7 @@ CustomerCard.propTypes = {
     locality: PropTypes.string,
     name: PropTypes.string,
     phoneNumber: PropTypes.string,
+    secondaryPhoneNumber: PropTypes.string,
     storeName: PropTypes.string,
     town: PropTypes.string,
   }),

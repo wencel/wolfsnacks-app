@@ -161,7 +161,6 @@ const AddEditSalePage = ({
   }, [customer]);
 
   useEffect(() => {
-    console.log(localSale.partialPayment);
     const owes = localSale.partialPayment < localSale.totalPrice;
     setLocalSale({
       ...localSale,

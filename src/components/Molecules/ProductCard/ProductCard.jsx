@@ -14,6 +14,7 @@ import Button from 'components/Atoms/Button';
 import { Link } from 'react-router-dom';
 import WarningModal from 'components/Organisms/WarningModal';
 import { textConstants } from 'appConstants';
+import NumberFormat from 'react-number-format';
 
 const ProductCard = ({ product, className, navigate, deleteProduct }) => {
   const cardClasses = classnames({
@@ -57,11 +58,31 @@ const ProductCard = ({ product, className, navigate, deleteProduct }) => {
         title={
           navigate ? (
             <NavigationCardHeader
-              title={`${product?.name} ${product?.presentation}`}
+              title={
+                <>
+                  {product?.name} {product?.presentation}&nbsp;
+                  <NumberFormat
+                    value={product?.weight}
+                    displayType={'text'}
+                    suffix=' g'
+                    thousandSeparator='.'
+                    decimalSeparator=','
+                  />
+                </>
+              }
               to={`/products/${product._id}`}
             />
           ) : (
-            `${product?.name} ${product?.presentation}`
+            <>
+              {product?.name} {product?.presentation}&nbsp;
+              <NumberFormat
+                value={product?.weight}
+                displayType={'text'}
+                suffix=' g'
+                thousandSeparator='.'
+                decimalSeparator=','
+              />
+            </>
           )
         }
         key={product._id}
@@ -71,17 +92,27 @@ const ProductCard = ({ product, className, navigate, deleteProduct }) => {
           {product.stock} {textConstants.misc.UNITS}&nbsp;
           <span>({textConstants.product.STOCK})</span>
         </div>
-        <div className={Styles.weight}>
-          <FaWeight className={Styles.icon} />
-          {textConstants.product.WEIGHT} {product.weight}
-        </div>
         <div className={Styles.basePrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          {textConstants.product.BASE_PRICE} $ {product.basePrice}
+          {textConstants.product.BASE_PRICE}&nbsp;
+          <NumberFormat
+            value={product?.basePrice}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <div className={Styles.sellingPrice}>
           <AiOutlineDollarCircle className={Styles.icon} />
-          {textConstants.product.SELLING_PRICE} $ {product.sellingPrice}
+          {textConstants.product.SELLING_PRICE}&nbsp;
+          <NumberFormat
+            value={product?.sellingPrice}
+            displayType={'text'}
+            prefix='$'
+            thousandSeparator='.'
+            decimalSeparator=','
+          />
         </div>
         <div className={Styles.buttonContainer}>
           <Link to={`/products/edit/${product._id}`}>

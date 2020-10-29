@@ -96,7 +96,25 @@ const Input = ({
         />
       )}
 
-      {!['select', 'textarea', 'number'].includes(type) && (
+      {type === 'phoneNumber' && (
+        <NumberFormat
+          getInputRef={el => (actualRef.current = el)}
+          onFocus={() => {
+            setIsFocused(true);
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+          }}
+          id={id}
+          value={value}
+          {...restProps}
+          isNumericString={true}
+          format='(###)-###-####'
+          allowLeadingZeros={true}
+        />
+      )}
+
+      {!['select', 'textarea', 'number', 'phoneNumber'].includes(type) && (
         <input
           ref={actualRef}
           onFocus={() => {

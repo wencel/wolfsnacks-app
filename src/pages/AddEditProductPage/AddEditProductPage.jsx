@@ -100,27 +100,30 @@ const AddEditProductPage = ({
             label={textConstants.product.WEIGHT}
             type='number'
             value={localProduct.weight}
+            suffix=' g'
             disabled={!!id}
-            onChange={e => {
-              setLocalProduct({ ...localProduct, weight: e.target.value });
+            onValueChange={e => {
+              setLocalProduct({ ...localProduct, weight: e.floatValue });
             }}
           />
           <Input
             label={textConstants.product.BASE_PRICE}
             type='number'
             value={localProduct.basePrice}
-            onChange={e => {
-              setLocalProduct({ ...localProduct, basePrice: e.target.value });
+            prefix='$'
+            onValueChange={e => {
+              setLocalProduct({ ...localProduct, basePrice: e.floatValue });
             }}
           />
           <Input
             label={textConstants.product.SELLING_PRICE}
             type='number'
             value={localProduct.sellingPrice}
-            onChange={e => {
+            prefix='$'
+            onValueChange={e => {
               setLocalProduct({
                 ...localProduct,
-                sellingPrice: e.target.value,
+                sellingPrice: e.floatValue,
               });
             }}
           />
@@ -128,8 +131,8 @@ const AddEditProductPage = ({
             label={textConstants.product.STOCK}
             type='number'
             value={localProduct.stock}
-            onChange={e => {
-              setLocalProduct({ ...localProduct, stock: e.target.value });
+            onValueChange={e => {
+              setLocalProduct({ ...localProduct, stock: e.floatValue });
             }}
           />
         </Form>

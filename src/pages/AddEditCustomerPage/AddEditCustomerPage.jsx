@@ -28,6 +28,7 @@ const AddEditCustomerPage = ({
     address: '',
     email: '',
     phoneNumber: '',
+    secondaryPhoneNumber: '',
     locality: '',
     town: '',
     idNumber: '',
@@ -102,12 +103,23 @@ const AddEditCustomerPage = ({
           />
           <Input
             label={textConstants.customer.PHONE_NUMBER}
-            type='number'
+            type='phoneNumber'
             value={localCustomer.phoneNumber}
-            onChange={e => {
+            onValueChange={e => {
               setLocalCustomer({
                 ...localCustomer,
-                phoneNumber: e.target.value,
+                phoneNumber: e.value,
+              });
+            }}
+          />
+          <Input
+            label={textConstants.customer.SECONDARY_PHONE_NUMBER}
+            type='phoneNumber'
+            value={localCustomer.secondaryPhoneNumber}
+            onValueChange={e => {
+              setLocalCustomer({
+                ...localCustomer,
+                secondaryPhoneNumber: e.value,
               });
             }}
           />
@@ -131,8 +143,8 @@ const AddEditCustomerPage = ({
             label={textConstants.customer.ID_NUMBER}
             type='number'
             value={localCustomer.idNumber}
-            onChange={e => {
-              setLocalCustomer({ ...localCustomer, idNumber: e.target.value });
+            onValueChange={e => {
+              setLocalCustomer({ ...localCustomer, idNumber: e.floatValue });
             }}
           />
         </Form>
