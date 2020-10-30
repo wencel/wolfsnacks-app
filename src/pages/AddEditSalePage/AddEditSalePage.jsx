@@ -21,6 +21,7 @@ import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 import TopActions from 'components/Organisms/TopActions';
 import { IoIosArrowDropleft } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi';
+import Label from 'components/Atoms/Label';
 
 const AddEditSalePage = ({
   sale,
@@ -251,6 +252,9 @@ const AddEditSalePage = ({
               });
             }}
           />
+          <Label className={Styles.label}>
+            {textConstants.salePage.SALE_DATE}
+          </Label>
           <Calendar
             isRange={false}
             onChange={value => {

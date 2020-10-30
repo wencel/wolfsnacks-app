@@ -17,6 +17,7 @@ import Calendar from 'components/Atoms/Calendar';
 import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 import TopActions from 'components/Organisms/TopActions';
 import { IoIosArrowDropleft } from 'react-icons/io';
+import Label from 'components/Atoms/Label/Label';
 
 const AddEditOrderPage = ({
   order,
@@ -161,6 +162,9 @@ const AddEditOrderPage = ({
             }
             disabled
           />
+          <Label className={Styles.label}>
+            {textConstants.orderPage.ORDER_DATE}
+          </Label>
           <Calendar
             isRange={false}
             onChange={value => {

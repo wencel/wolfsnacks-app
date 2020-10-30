@@ -8,6 +8,7 @@ import Styles from './OrderFilterModal.module.sass';
 import { textConstants } from 'appConstants';
 import Calendar from 'components/Atoms/Calendar';
 import Button from 'components/Atoms/Button';
+import Label from 'components/Atoms/Label';
 
 const OrderFilterModal = ({
   closeModal,
@@ -39,6 +40,7 @@ const OrderFilterModal = ({
             applyFilter({ dateRange });
           }}
         >
+          <Label className={Styles.label}>{textConstants.misc.DATES}</Label>
           <Calendar
             onChange={setDateRange}
             value={dateRange}

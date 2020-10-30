@@ -129,6 +129,7 @@ export const textConstants = {
     DELETE_SUCCESS: 'El pedido ha sido eliminado con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar pedido',
     DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el pedido #',
+    ORDER_DATE: 'Fecha del pedido',
   },
   salePage: {
     TITLE: 'Ventas',
@@ -143,6 +144,7 @@ export const textConstants = {
     DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la venta #',
     OWES: 'Debe?',
     IS_THIRTEEN_DOZEN: 'Es docena de 13?',
+    SALE_DATE: 'Fecha de la venta',
   },
   misc: {
     SAVE: 'Guardar',
