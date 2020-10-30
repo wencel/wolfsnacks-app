@@ -37,8 +37,7 @@ const LoginPage = ({ loginReguest, loading }) => {
       >
         <Form
           onSubmit={submitLogin}
-          buttonText={textConstants.login.BUTTON_TEXT}
-          showButtonOnForm
+          buttonProps={{ buttonText: textConstants.login.BUTTON_TEXT }}
         >
           <Input
             label={textConstants.login.EMAIL_LABEL}

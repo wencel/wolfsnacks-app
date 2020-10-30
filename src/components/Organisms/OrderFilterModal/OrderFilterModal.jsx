@@ -7,7 +7,6 @@ import Form from 'components/Atoms/Form';
 import Styles from './OrderFilterModal.module.sass';
 import { textConstants } from 'appConstants';
 import Calendar from 'components/Atoms/Calendar';
-import Button from 'components/Atoms/Button';
 import Label from 'components/Atoms/Label';
 
 const OrderFilterModal = ({
@@ -39,6 +38,11 @@ const OrderFilterModal = ({
             e.preventDefault();
             applyFilter({ dateRange });
           }}
+          buttonProps={{ buttonText: textConstants.misc.APPLY }}
+          secondButtonProps={{
+            buttonText: textConstants.misc.CANCEL,
+            onClick: closeModal,
+          }}
         >
           <Label className={Styles.label}>{textConstants.misc.DATES}</Label>
           <Calendar
@@ -46,12 +50,6 @@ const OrderFilterModal = ({
             value={dateRange}
             maxDate={new Date()}
           />
-          <div className={Styles.buttonsContainer}>
-            <Button type='button' onClick={closeModal}>
-              {textConstants.misc.CANCEL}
-            </Button>
-            <Button type='submit'>{textConstants.misc.APPLY}</Button>
-          </div>
         </Form>
       </Card>
     </Modal>

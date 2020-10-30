@@ -27,7 +27,7 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
   const [showModal, setShowModal] = useState(false);
   const orderDate = moment(order?.orderDate)
     .locale('es')
-    .format('MMMM Do YYYY');
+    .format('Do MMMM  YYYY');
   const requestDeleteOrder = () => {
     deleteOrder(order._id);
     setShowModal(false);
@@ -48,7 +48,15 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
           <>
             {textConstants.orderPage.DELETE_CONFIRMATION}{' '}
             <b>
-              <i>{order?.orderId}</i>
+              <i>
+                <NumberFormat
+                  value={order.orderId}
+                  displayType={'text'}
+                  thousandSeparator='.'
+                  decimalSeparator=','
+                  prefix='#'
+                />
+              </i>
             </b>{' '}
             del{' '}
             <b>
@@ -76,6 +84,7 @@ const OrderCard = ({ order, className, navigate, deleteOrder, products }) => {
                     displayType={'text'}
                     thousandSeparator='.'
                     decimalSeparator=','
+                    prefix='#'
                   />
                 </>
               }

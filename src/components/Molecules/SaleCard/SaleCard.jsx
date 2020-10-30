@@ -27,7 +27,7 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
     [className]: className,
   });
   const [showModal, setShowModal] = useState(false);
-  const saleDate = moment(sale?.saleDate).locale('es').format('MMMM Do YYYY');
+  const saleDate = moment(sale?.saleDate).locale('es').format('Do MMMM YYYY');
   const requestDeleteSale = () => {
     deleteSale(sale._id);
     setShowModal(false);
@@ -48,7 +48,15 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
           <>
             {textConstants.salePage.DELETE_CONFIRMATION}{' '}
             <b>
-              <i>{sale?.saleDate}</i>
+              <i>
+                <NumberFormat
+                  value={sale.saleId}
+                  displayType={'text'}
+                  thousandSeparator='.'
+                  decimalSeparator=','
+                  prefix='#'
+                />
+              </i>
             </b>{' '}
             del{' '}
             <b>
@@ -72,10 +80,11 @@ const SaleCard = ({ sale, className, navigate, deleteSale, products }) => {
                 <>
                   {textConstants.salePage.SALE}{' '}
                   <NumberFormat
-                    value={sale.orderId}
+                    value={sale.saleId}
                     displayType={'text'}
                     thousandSeparator='.'
                     decimalSeparator=','
+                    prefix='#'
                   />
                 </>
               }

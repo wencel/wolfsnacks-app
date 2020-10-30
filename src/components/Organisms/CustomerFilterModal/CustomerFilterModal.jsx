@@ -8,7 +8,6 @@ import Input from 'components/Atoms/Input';
 import Styles from './CustomerFilterModal.module.sass';
 import { textConstants } from 'appConstants';
 import { FiSearch } from 'react-icons/fi';
-import Button from 'components/Atoms/Button';
 
 const CustomerFilterModal = ({
   closeModal,
@@ -45,6 +44,11 @@ const CustomerFilterModal = ({
             e.preventDefault();
             applyFilter({ textQuery, sortBy, direction });
           }}
+          buttonProps={{ buttonText: textConstants.misc.APPLY }}
+          secondButtonProps={{
+            buttonText: textConstants.misc.CANCEL,
+            onClick: closeModal,
+          }}
         >
           <Input
             label={
@@ -79,12 +83,6 @@ const CustomerFilterModal = ({
               { label: textConstants.misc.DESCENDING, value: 'desc' },
             ]}
           />
-          <div className={Styles.buttonsContainer}>
-            <Button type='button' onClick={closeModal}>
-              {textConstants.misc.CANCEL}
-            </Button>
-            <Button type='submit'>{textConstants.misc.APPLY}</Button>
-          </div>
         </Form>
       </Card>
     </Modal>

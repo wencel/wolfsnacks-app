@@ -128,7 +128,7 @@ export const textConstants = {
       'No existen pedidos con los parámetros que pusiste en los filtros, si no existe el pedido que buscas puedes agregar uno nuevo con el botón en la parte de abajo',
     DELETE_SUCCESS: 'El pedido ha sido eliminado con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar pedido',
-    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el pedido #',
+    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar el pedido',
     ORDER_DATE: 'Fecha del pedido',
   },
   salePage: {
@@ -141,7 +141,7 @@ export const textConstants = {
       'No existen ventas con los parámetros que pusiste en los filtros, si no existe la venta que buscas puedes agregar una nueva con el botón en la parte de abajo',
     DELETE_SUCCESS: 'La venta ha sido eliminada con exito',
     DELETE_CONFIRMATION_TITLE: 'Eliminar venta',
-    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la venta #',
+    DELETE_CONFIRMATION: 'Confirmas que deseas eliminar la venta',
     OWES: 'Debe?',
     IS_THIRTEEN_DOZEN: 'Es docena de 13?',
     SALE_DATE: 'Fecha de la venta',
