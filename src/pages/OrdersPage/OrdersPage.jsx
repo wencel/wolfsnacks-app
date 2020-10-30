@@ -6,12 +6,13 @@ import { MdPlaylistAdd } from 'react-icons/md';
 import Card from 'components/Atoms/Card';
 import PageContainer from 'components/Atoms/PageContainer';
 import OrderCard from 'components/Molecules/OrderCard';
-import ButtonContainer from 'components/Atoms/ButtonContainer';
+import TopActions from 'components/Organisms/TopActions';
 import OrderFilterModal from 'components/Organisms/OrderFilterModal';
 import { textConstants } from 'appConstants';
 
 import Styles from './OrdersPage.module.sass';
 import Loading from 'components/Atoms/Loading';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 // import OrderFilterModal from 'components/Organisms/OrderFilterModal';
 
 const OrdersPage = ({
@@ -22,6 +23,7 @@ const OrdersPage = ({
   resetProductsList,
   products,
 }) => {
+  useSetActiveTab('orders');
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
@@ -112,7 +114,7 @@ const OrdersPage = ({
             description={textConstants.orderPage.EMPTY_DESCRIPTION}
           />
         )}
-        <ButtonContainer
+        <TopActions
           buttons={[
             {
               text: textConstants.addOrder.ADD_ORDER,

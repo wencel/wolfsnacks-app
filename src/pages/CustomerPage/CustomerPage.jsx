@@ -7,9 +7,14 @@ import CustomerCard from 'components/Molecules/CustomerCard';
 import Styles from './CustomerPage.module.sass';
 import Loading from 'components/Atoms/Loading';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { textConstants } from 'appConstants';
+import { IoIosArrowDropleft } from 'react-icons/io';
+import { MdPersonAdd } from 'react-icons/md';
 
 const CustomerPage = ({ customer, fetchCustomer, resetCustomer }) => {
+  useSetActiveTab('customers');
   const { id } = useParams();
   useEffect(() => {
     fetchCustomer(id);
@@ -22,7 +27,20 @@ const CustomerPage = ({ customer, fetchCustomer, resetCustomer }) => {
     <>
       <PageContainer>
         <Loading visible={customer.loading} />
-        <BackButton href='/customers' />
+        <TopActions
+          buttons={[
+            {
+              text: textConstants.misc.BACK,
+              icon: <IoIosArrowDropleft />,
+              href: '/customers',
+            },
+            {
+              text: textConstants.addCustomer.ADD_CUSTOMER,
+              icon: <MdPersonAdd />,
+              href: '/customers/new',
+            },
+          ]}
+        />
         <CustomerCard
           className={Styles.customerCard}
           customer={customer.data || {}}

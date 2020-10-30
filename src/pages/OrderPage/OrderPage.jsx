@@ -7,7 +7,11 @@ import OrderCard from 'components/Molecules/OrderCard';
 import Styles from './OrderPage.module.sass';
 import Loading from 'components/Atoms/Loading';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { IoIosArrowDropleft } from 'react-icons/io';
+import { MdPlaylistAdd } from 'react-icons/md';
+import { textConstants } from 'appConstants';
 
 const OrderPage = ({
   order,
@@ -17,6 +21,7 @@ const OrderPage = ({
   requestProductsList,
   resetProductsList,
 }) => {
+  useSetActiveTab('orders');
   const { id } = useParams();
   useEffect(() => {
     fetchOrder(id);
@@ -33,7 +38,20 @@ const OrderPage = ({
     <>
       <PageContainer>
         <Loading visible={order.loading} />
-        <BackButton href='/orders' />
+        <TopActions
+          buttons={[
+            {
+              text: textConstants.misc.BACK,
+              icon: <IoIosArrowDropleft />,
+              href: '/orders',
+            },
+            {
+              text: textConstants.addOrder.ADD_ORDER,
+              icon: <MdPlaylistAdd />,
+              href: '/orders/new',
+            },
+          ]}
+        />
         <OrderCard
           className={Styles.orderCard}
           order={order.data || {}}

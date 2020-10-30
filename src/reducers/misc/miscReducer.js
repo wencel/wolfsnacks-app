@@ -1,7 +1,8 @@
-import miscConstants from "./miscConstants";
+import miscConstants from './miscConstants';
 
 const initState = {
-  message: "",
+  message: '',
+  activeTab: '',
 };
 
 export const miscReducer = function (state = initState, action) {
@@ -14,7 +15,12 @@ export const miscReducer = function (state = initState, action) {
     case miscConstants.RESET_SNACKBAR:
       return {
         ...state,
-        message: "",
+        message: '',
+      };
+    case miscConstants.SET_ACTIVE_TAB:
+      return {
+        ...state,
+        activeTab: action.payload,
       };
     default:
       return state;

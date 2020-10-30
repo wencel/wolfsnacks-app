@@ -21,6 +21,7 @@ import OrderPage from 'pages/OrderPage';
 import SalesPage from 'pages/SalesPage';
 import AddEditSalePage from 'pages/AddEditSalePage';
 import SalePage from 'pages/SalePage';
+import BottomNavigation from 'components/Organisms/BottomNavigation';
 
 const App = () => {
   const user = useSelector(userSelector);
@@ -90,6 +91,7 @@ const App = () => {
           <NotFound />
         </Route>
       </Switch>
+      {user && <BottomNavigation />}
     </>
   );
 };

@@ -7,7 +7,11 @@ import SaleCard from 'components/Molecules/SaleCard';
 import Styles from './SalePage.module.sass';
 import Loading from 'components/Atoms/Loading';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { IoIosArrowDropleft } from 'react-icons/io';
+import { MdPlaylistAdd } from 'react-icons/md';
+import { textConstants } from 'appConstants';
 
 const SalePage = ({
   sale,
@@ -17,6 +21,7 @@ const SalePage = ({
   requestProductsList,
   resetProductsList,
 }) => {
+  useSetActiveTab('sales');
   const { id } = useParams();
   useEffect(() => {
     fetchSale(id);
@@ -33,7 +38,20 @@ const SalePage = ({
     <>
       <PageContainer>
         <Loading visible={sale.loading} />
-        <BackButton href='/sales' />
+        <TopActions
+          buttons={[
+            {
+              text: textConstants.misc.BACK,
+              icon: <IoIosArrowDropleft />,
+              href: '/sales',
+            },
+            {
+              text: textConstants.addSale.ADD_SALE,
+              icon: <MdPlaylistAdd />,
+              href: '/sales/new',
+            },
+          ]}
+        />
         <SaleCard
           className={Styles.saleCard}
           sale={sale.data || {}}

@@ -21,17 +21,20 @@
     font-size: 0.9em
     color: $letterColor
     background-color: $darkGrey
+    &:hover
+      outline: none
+    &:focus
+      outline: none
+    &:active
+      outline: none
     &.WolfGreen
       background-color: $lighterWolfGreen
       &:hover
         background-color: $lightWolfGreen
-        outline: none
       &:focus
         background-color: $lightWolfGreen
-        outline: none
       &:active
         background-color: $wolfGreen
-        outline: none
     &.RoundWithLabel
       background-color: $wolfGreen
       height: 2.5em
@@ -39,13 +42,8 @@
       border-radius: 50%
       padding: 0 0
       color: $brightGreen
-      &:hover
-        outline: none
-      &:focus
-        outline: none
       &:active
         background-color: $wolfGreen
-        outline: none
     &.Outline
       width: 100%
       padding: 0.5em
@@ -54,9 +52,20 @@
       color: $brightGreen
       margin: 0.4em 0
       border-radius: 5px
-      &:hover
-        outline: none
-      &:focus
-        outline: none
+    &.BottomNavigation
+      height: 4em
+      border-radius: 0
+      padding: 0
+      width: 100%
+      background-color: $wolfGreen
+      color: $brightGreen
+      display: flex
+      flex-direction: column
+      grid-gap: 0.1em
+      font-size: 0.7em
+      transition: 0.2s
+      & svg 
+        font-size: 1.8em
       &:active
-        outline: none
+        background-color: $brightGreen
+        color: $mainBackground

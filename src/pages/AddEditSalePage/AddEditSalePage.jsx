@@ -18,6 +18,7 @@ import Checkbox from 'components/Atoms/Checkbox/Checkbox';
 import SearchField from 'components/Molecules/SearchField';
 import { calculateTotalPriceProduct } from 'utils/utils';
 import Calendar from 'components/Atoms/Calendar';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const AddEditSalePage = ({
   sale,
@@ -30,6 +31,7 @@ const AddEditSalePage = ({
   resetCustomersList,
   customers,
 }) => {
+  useSetActiveTab('sales');
   const { id } = useParams();
   const [customer, setCustomer] = useState({});
   const pageContainerRef = useRef(null);

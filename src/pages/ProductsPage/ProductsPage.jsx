@@ -6,15 +6,17 @@ import { MdPlaylistAdd } from 'react-icons/md';
 import Card from 'components/Atoms/Card';
 import PageContainer from 'components/Atoms/PageContainer';
 import ProductCard from 'components/Molecules/ProductCard';
-import ButtonContainer from 'components/Atoms/ButtonContainer';
+import TopActions from 'components/Organisms/TopActions';
 // import ProductFilterModal from 'components/Organisms/ProductFilterModal';
 import { textConstants } from 'appConstants';
 
 import Styles from './ProductsPage.module.sass';
 import Loading from 'components/Atoms/Loading';
 import ProductFilterModal from 'components/Organisms/ProductFilterModal';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
+  useSetActiveTab('products');
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [textQuery, setTextQuery] = useState('');
@@ -104,7 +106,7 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
             description={textConstants.productPage.EMPTY_DESCRIPTION}
           />
         )}
-        <ButtonContainer
+        <TopActions
           buttons={[
             {
               text: textConstants.addProduct.ADD_PRODUCT,

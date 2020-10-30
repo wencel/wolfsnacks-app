@@ -6,12 +6,14 @@ import { MdPlaylistAdd } from 'react-icons/md';
 import Card from 'components/Atoms/Card';
 import PageContainer from 'components/Atoms/PageContainer';
 import SaleCard from 'components/Molecules/SaleCard';
-import ButtonContainer from 'components/Atoms/ButtonContainer';
+
 import SaleFilterModal from 'components/Organisms/SaleFilterModal';
 import { textConstants } from 'appConstants';
 
 import Styles from './SalesPage.module.sass';
 import Loading from 'components/Atoms/Loading';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
 
 const SalesPage = ({
   sales,
@@ -24,6 +26,7 @@ const SalesPage = ({
   requestCustomersList,
   resetCustomersList,
 }) => {
+  useSetActiveTab('sales');
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
@@ -155,7 +158,7 @@ const SalesPage = ({
             description={textConstants.salePage.EMPTY_DESCRIPTION}
           />
         )}
-        <ButtonContainer
+        <TopActions
           buttons={[
             {
               text: textConstants.addSale.ADD_SALE,

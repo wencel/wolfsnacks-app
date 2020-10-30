@@ -12,6 +12,7 @@ import BackButton from 'components/Atoms/BackButton';
 
 import Styles from './AddEditCustomerPage.module.sass';
 import { checkObjectsDiff } from 'utils/utils';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const AddEditCustomerPage = ({
   localities,
@@ -34,6 +35,7 @@ const AddEditCustomerPage = ({
     idNumber: '',
     _id: '',
   });
+  useSetActiveTab('customers');
   const saveCustomer = e => {
     e.preventDefault();
     const { createdAt, updatedAt, user, __v, ...rest } = localCustomer;

@@ -12,6 +12,7 @@ import BackButton from 'components/Atoms/BackButton';
 
 import Styles from './AddEditProductPage.module.sass';
 import { checkObjectsDiff } from 'utils/utils';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const AddEditProductPage = ({
   product,
@@ -22,6 +23,7 @@ const AddEditProductPage = ({
   fetchPresentations,
   fetchProductTypes,
 }) => {
+  useSetActiveTab('products');
   const { id } = useParams();
 
   const [localProduct, setLocalProduct] = useState({

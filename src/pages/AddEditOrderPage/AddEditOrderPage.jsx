@@ -15,6 +15,7 @@ import Button from 'components/Atoms/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 import SubCard from 'components/Atoms/SubCard';
 import Calendar from 'components/Atoms/Calendar';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const AddEditOrderPage = ({
   order,
@@ -24,6 +25,7 @@ const AddEditOrderPage = ({
   resetProductsList,
   products,
 }) => {
+  useSetActiveTab('orders');
   const { id } = useParams();
 
   const pageContainerRef = useRef(null);

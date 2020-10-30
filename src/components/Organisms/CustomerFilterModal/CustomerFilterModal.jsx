@@ -7,6 +7,7 @@ import Form from 'components/Atoms/Form';
 import Input from 'components/Atoms/Input';
 import Styles from './CustomerFilterModal.module.sass';
 import { textConstants } from 'appConstants';
+import { FiSearch } from 'react-icons/fi';
 
 const CustomerFilterModal = ({
   closeModal,
@@ -51,7 +52,12 @@ const CustomerFilterModal = ({
           showButtonOnForm
         >
           <Input
-            label={textConstants.misc.SEARCH_TERM}
+            label={
+              <div className={Styles.label}>
+                <FiSearch />
+                {textConstants.customerPage.SEARCH_CUSTOMER}
+              </div>
+            }
             value={textQuery}
             onChange={e => setTextQuery(e.target.value)}
           />

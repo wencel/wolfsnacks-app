@@ -1,0 +1,22 @@
+@import  'styles.global.sass'
+.NavigationBar
+  left: 0
+  right: 0
+  padding: 0
+  position: fixed
+  z-index: 10
+  display: flex
+  align-items: center
+  text-align: center
+  grid-gap: 1px
+  overflow: scroll
+  background-color: $brightGreen
+  border-top: 1px solid $brightGreen
+  & > div, > a, > button
+    flex: 1
+  &.bottom
+    bottom: 0
+    border-top: 1px solid $brightGreen
+  &.top
+    top: 3em
+    border-bottom: 1px solid $brightGreen

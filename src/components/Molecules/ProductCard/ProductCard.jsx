@@ -5,7 +5,6 @@ import { ImListNumbered } from 'react-icons/im';
 
 import Card from 'components/Atoms/Card';
 import classnames from 'classnames';
-import { FaWeight } from 'react-icons/fa';
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 
 import Styles from './ProductCard.module.sass';

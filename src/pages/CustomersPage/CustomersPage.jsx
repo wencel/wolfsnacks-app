@@ -6,18 +6,20 @@ import { MdPersonAdd } from 'react-icons/md';
 import Card from 'components/Atoms/Card';
 import PageContainer from 'components/Atoms/PageContainer';
 import CustomerCard from 'components/Molecules/CustomerCard';
-import ButtonContainer from 'components/Atoms/ButtonContainer';
+import TopActions from 'components/Organisms/TopActions';
 import CustomerFilterModal from 'components/Organisms/CustomerFilterModal';
 import { textConstants } from 'appConstants';
 
 import Styles from './CustomersPage.module.sass';
 import Loading from 'components/Atoms/Loading';
+import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
 
 const CustomersPage = ({
   customers,
   requestCustomersList,
   resetCustomersList,
 }) => {
+  useSetActiveTab('customers');
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [textQuery, setTextQuery] = useState('');
@@ -107,7 +109,7 @@ const CustomersPage = ({
             description={textConstants.customerPage.EMPTY_DESCRIPTION}
           />
         )}
-        <ButtonContainer
+        <TopActions
           buttons={[
             {
               text: textConstants.addCustomer.ADD_CUSTOMER,
