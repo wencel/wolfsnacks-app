@@ -13,7 +13,7 @@ const Navbar = ({ user, requestLogout }) => {
       {/* <ButtonContainer buttons={user ? buttonsUser : []} position='top' /> */}
 
       <div className={Styles.logout}>
-        {user.name}
+        {user?.name}
         <Button
           onClick={() => {
             requestLogout();
