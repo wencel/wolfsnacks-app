@@ -10,6 +10,8 @@ import Radio from 'components/Atoms/Radio';
 import Label from 'components/Atoms/Label';
 import SearchField from 'components/Molecules/SearchField/SearchField';
 import Calendar from 'components/Atoms/Calendar';
+import Button from 'components/Atoms/Button';
+import { FiSearch } from 'react-icons/fi';
 
 const SaleFilterModal = ({
   closeModal,
@@ -76,16 +78,10 @@ const SaleFilterModal = ({
         className={Styles.fullWidth}
       >
         <Form
-          buttonText={textConstants.misc.APPLY}
           onSubmit={e => {
             e.preventDefault();
             applyFilter({ dateRange, owes, isThirteenDozen, customer });
           }}
-          secondButtonText={textConstants.misc.CANCEL}
-          secondButtonProps={{
-            onClick: closeModal,
-          }}
-          showButtonOnForm
         >
           <Label className={Styles.label}>{textConstants.misc.DATES}</Label>
           <Calendar
@@ -96,7 +92,12 @@ const SaleFilterModal = ({
           <SearchField
             onSearch={fetchCustomers}
             isLoading={customers.loading}
-            label={textConstants.addSale.SEARCH_CUSTOMER}
+            label={
+              <div className={Styles.labelSearch}>
+                <FiSearch />
+                {textConstants.addSale.SEARCH_CUSTOMER}
+              </div>
+            }
             value={customer?.storeName}
             valueLabel={textConstants.sale.CUSTOMER}
             onSelect={c => {
@@ -162,6 +163,12 @@ const SaleFilterModal = ({
               label={textConstants.misc.ALL}
               onChange={updateIsThirteenDozen}
             />
+          </div>
+          <div className={Styles.buttonsContainer}>
+            <Button type='button' onClick={closeModal}>
+              {textConstants.misc.CANCEL}
+            </Button>
+            <Button type='submit'>{textConstants.misc.APPLY}</Button>
           </div>
         </Form>
       </Card>

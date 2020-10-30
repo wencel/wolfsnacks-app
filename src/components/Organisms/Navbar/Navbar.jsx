@@ -10,7 +10,6 @@ const Navbar = ({ user, requestLogout }) => {
       <div>
         <Logo isRound width='40' />
       </div>
-      {/* <ButtonContainer buttons={user ? buttonsUser : []} position='top' /> */}
 
       <div className={Styles.logout}>
         {user?.name}

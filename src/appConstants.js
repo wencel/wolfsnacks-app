@@ -196,7 +196,8 @@ export const appConstants = {
       fontFamily: 'Roboto, sans-serif',
       fontSize: '1em',
       textAlign: 'center',
-      'font-weight': '500',
+      fontWeight: '500',
+      zIndex: '20',
     },
     closeStyle: {
       color: lighterWolfGreen,

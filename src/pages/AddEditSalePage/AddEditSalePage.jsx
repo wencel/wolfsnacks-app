@@ -8,7 +8,6 @@ import Card from 'components/Atoms/Card';
 import Form from 'components/Atoms/Form';
 import Input from 'components/Atoms/Input';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
 
 import Styles from './AddEditSalePage.module.sass';
 import Button from 'components/Atoms/Button';
@@ -19,6 +18,9 @@ import SearchField from 'components/Molecules/SearchField';
 import { calculateTotalPriceProduct } from 'utils/utils';
 import Calendar from 'components/Atoms/Calendar';
 import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { IoIosArrowDropleft } from 'react-icons/io';
+import { FiSearch } from 'react-icons/fi';
 
 const AddEditSalePage = ({
   sale,
@@ -173,26 +175,41 @@ const AddEditSalePage = ({
 
   return (
     <PageContainer containerRef={pageContainerRef}>
-      <BackButton href={id ? `/sales/${id}` : '/sales'} />
       <Card
         className={Styles.AddEditCard}
         title={id ? textConstants.editSale.TITLE : textConstants.addSale.TITLE}
       >
-        <Form
-          buttonText={textConstants.misc.SAVE}
-          buttonIcon={<MdSave />}
-          secondButtonText={textConstants.addSale.ADD_PRODUCT}
-          secondButtonProps={{
-            onClick: addProduct,
-          }}
-          secondButtonIcon={<MdPlaylistAdd />}
-          loading={sale.loading}
-          onSubmit={saveSale}
-        >
+        <Form loading={sale.loading} onSubmit={saveSale}>
+          <TopActions
+            buttons={[
+              {
+                text: textConstants.misc.BACK,
+                icon: <IoIosArrowDropleft />,
+                href: id ? `/sales/${id}` : '/sales',
+                type: 'button',
+              },
+              {
+                text: textConstants.addSale.ADD_PRODUCT,
+                icon: <MdPlaylistAdd />,
+                type: 'button',
+                onClick: addProduct,
+              },
+              {
+                text: textConstants.misc.SAVE,
+                icon: <MdSave />,
+                type: 'submit',
+              },
+            ]}
+          />
           <SearchField
             onSearch={fetchCustomers}
             isLoading={customers.loading}
-            label={textConstants.addSale.SEARCH_CUSTOMER}
+            label={
+              <div className={Styles.label}>
+                <FiSearch />
+                {textConstants.addSale.SEARCH_CUSTOMER}
+              </div>
+            }
             onSelect={c => {
               setCustomer(c);
             }}

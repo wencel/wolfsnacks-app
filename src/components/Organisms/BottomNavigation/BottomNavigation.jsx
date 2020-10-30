@@ -11,24 +11,6 @@ import NavigationBar from 'components/Molecules/NavigationBar';
 const BottomNavigation = ({ activeTab }) => {
   return (
     <NavigationBar className={Styles.BottomNavigation}>
-      <Link to='/sales' className={Styles.link}>
-        <Button
-          theme='BottomNavigation'
-          className={activeTab === 'sales' ? Styles.active : ''}
-        >
-          <FaMoneyBillWave />
-          {textConstants.navbar.SALES}
-        </Button>
-      </Link>
-      <Link to='/orders' className={Styles.link}>
-        <Button
-          theme='BottomNavigation'
-          className={activeTab === 'orders' ? Styles.active : ''}
-        >
-          <ImTruck />
-          {textConstants.navbar.ORDERS}
-        </Button>
-      </Link>
       <Link to='/customers' className={Styles.link}>
         <Button
           theme='BottomNavigation'
@@ -45,6 +27,24 @@ const BottomNavigation = ({ activeTab }) => {
         >
           <FaDog />
           {textConstants.navbar.PRODUCTS}
+        </Button>
+      </Link>
+      <Link to='/sales' className={Styles.link}>
+        <Button
+          theme='BottomNavigation'
+          className={activeTab === 'sales' ? Styles.active : ''}
+        >
+          <FaMoneyBillWave />
+          {textConstants.navbar.SALES}
+        </Button>
+      </Link>
+      <Link to='/orders' className={Styles.link}>
+        <Button
+          theme='BottomNavigation'
+          className={activeTab === 'orders' ? Styles.active : ''}
+        >
+          <ImTruck />
+          {textConstants.navbar.ORDERS}
         </Button>
       </Link>
     </NavigationBar>

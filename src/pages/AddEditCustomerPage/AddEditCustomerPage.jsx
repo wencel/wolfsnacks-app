@@ -8,11 +8,12 @@ import Card from 'components/Atoms/Card';
 import Form from 'components/Atoms/Form';
 import Input from 'components/Atoms/Input';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
 
 import Styles from './AddEditCustomerPage.module.sass';
 import { checkObjectsDiff } from 'utils/utils';
 import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { IoIosArrowDropleft } from 'react-icons/io';
 
 const AddEditCustomerPage = ({
   localities,
@@ -59,7 +60,6 @@ const AddEditCustomerPage = ({
   }, []);
   return (
     <PageContainer>
-      <BackButton href={id ? `/customers/${id}` : '/customers'} />
       <Card
         className={Styles.AddEditCard}
         title={
@@ -68,17 +68,35 @@ const AddEditCustomerPage = ({
             : textConstants.addCustomer.TITLE
         }
       >
-        <Form
-          buttonText={textConstants.misc.SAVE}
-          buttonIcon={<MdSave />}
-          loading={customer.loading}
-          onSubmit={saveCustomer}
-        >
+        <Form loading={customer.loading} onSubmit={saveCustomer}>
+          <TopActions
+            buttons={[
+              {
+                text: textConstants.misc.BACK,
+                icon: <IoIosArrowDropleft />,
+                href: id ? `/customers/${id}` : '/customers',
+                type: 'button',
+              },
+              {
+                text: textConstants.misc.SAVE,
+                icon: <MdSave />,
+                type: 'submit',
+              },
+            ]}
+          />
           <Input
             label={textConstants.customer.STORE_NAME}
             value={localCustomer.storeName}
             onChange={e => {
               setLocalCustomer({ ...localCustomer, storeName: e.target.value });
+            }}
+          />
+          <Input
+            label={textConstants.customer.ID_NUMBER}
+            type='number'
+            value={localCustomer.idNumber}
+            onValueChange={e => {
+              setLocalCustomer({ ...localCustomer, idNumber: e.floatValue });
             }}
           />
           <Input
@@ -139,14 +157,6 @@ const AddEditCustomerPage = ({
             value={localCustomer.town}
             onChange={e => {
               setLocalCustomer({ ...localCustomer, town: e.target.value });
-            }}
-          />
-          <Input
-            label={textConstants.customer.ID_NUMBER}
-            type='number'
-            value={localCustomer.idNumber}
-            onValueChange={e => {
-              setLocalCustomer({ ...localCustomer, idNumber: e.floatValue });
             }}
           />
         </Form>

@@ -8,7 +8,6 @@ import Card from 'components/Atoms/Card';
 import Form from 'components/Atoms/Form';
 import Input from 'components/Atoms/Input';
 import { useParams } from 'react-router-dom';
-import BackButton from 'components/Atoms/BackButton';
 
 import Styles from './AddEditOrderPage.module.sass';
 import Button from 'components/Atoms/Button';
@@ -16,6 +15,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import SubCard from 'components/Atoms/SubCard';
 import Calendar from 'components/Atoms/Calendar';
 import useSetActiveTab from 'reducers/hooks/useSetActiveTab';
+import TopActions from 'components/Organisms/TopActions';
+import { IoIosArrowDropleft } from 'react-icons/io';
 
 const AddEditOrderPage = ({
   order,
@@ -121,24 +122,34 @@ const AddEditOrderPage = ({
 
   return (
     <PageContainer containerRef={pageContainerRef}>
-      <BackButton href={id ? `/orders/${id}` : '/orders'} />
       <Card
         className={Styles.AddEditCard}
         title={
           id ? textConstants.editOrder.TITLE : textConstants.addOrder.TITLE
         }
       >
-        <Form
-          buttonText={textConstants.misc.SAVE}
-          buttonIcon={<MdSave />}
-          secondButtonText={textConstants.addOrder.ADD_PRODUCT}
-          secondButtonProps={{
-            onClick: addProduct,
-          }}
-          secondButtonIcon={<MdPlaylistAdd />}
-          loading={order.loading}
-          onSubmit={saveOrder}
-        >
+        <Form loading={order.loading} onSubmit={saveOrder}>
+          <TopActions
+            buttons={[
+              {
+                text: textConstants.misc.BACK,
+                icon: <IoIosArrowDropleft />,
+                href: id ? `/orders/${id}` : '/orders',
+                type: 'button',
+              },
+              {
+                text: textConstants.addOrder.ADD_PRODUCT,
+                icon: <MdPlaylistAdd />,
+                type: 'button',
+                onClick: addProduct,
+              },
+              {
+                text: textConstants.misc.SAVE,
+                icon: <MdSave />,
+                type: 'submit',
+              },
+            ]}
+          />
           <Input
             label={textConstants.order.TOTAL_PRICE}
             prefix='$'
