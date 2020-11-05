@@ -186,6 +186,7 @@ export const errorSuccessConstants = {
   NO_PRODUCT: 'Todos los productos deben tener los campos diligenciados',
   NO_QUANTITY: 'La cantidad de los productos debe ser mayor a cero',
   NO_EMPTY_PRODUCTS: 'Debe agregar al menos un producto',
+  NO_DUPLICATED_PRODUCTS: 'No puedes agregar productos repetidos',
 };
 
 export const appConstants = {

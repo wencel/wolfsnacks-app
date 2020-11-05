@@ -66,9 +66,14 @@ function* requestCreateEditSaleSaga(action) {
     }
     let noProductError = false;
     let noQuantityError = false;
+    let noDuplicatedError = false;
     products.forEach(product => {
       if (!product.product) noProductError = true;
       if (!product.quantity) noQuantityError = true;
+      const duplicatedProducts = products.filter(
+        p => p.product === product.product
+      );
+      if (duplicatedProducts.length > 1) noDuplicatedError = true;
     });
     if (noProductError) {
       //Wait 10 ms so the state of the reducer wil reset and show the error
@@ -81,6 +86,15 @@ function* requestCreateEditSaleSaga(action) {
       //Wait 10 ms so the state of the reducer wil reset and show the error
       yield delay(10);
       yield put(setSnackbarAction(errorSuccessConstants.NO_QUANTITY));
+      yield put(failureCreateEditSaleAction());
+      return;
+    }
+    if (noDuplicatedError) {
+      //Wait 10 ms so the state of the reducer wil reset and show the error
+      yield delay(10);
+      yield put(
+        setSnackbarAction(errorSuccessConstants.NO_DUPLICATED_PRODUCTS)
+      );
       yield put(failureCreateEditSaleAction());
       return;
     }
