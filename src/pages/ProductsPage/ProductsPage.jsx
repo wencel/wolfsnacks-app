@@ -20,15 +20,12 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
   const paginationLimit = 10;
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [textQuery, setTextQuery] = useState('');
-  const [sortBy, setSortBy] = useState('storeName');
-  const [direction, setDirection] = useState('asc');
 
   useEffect(() => {
     resetProductsList();
     requestProductsList({
       limit: paginationLimit,
       textQuery,
-      sortBy: `${sortBy}:${direction}`,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,12 +33,11 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
     resetProductsList();
     requestProductsList({
       textQuery,
-      sortBy: `${sortBy}:${direction}`,
       limit: paginationLimit,
       skip: 0,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textQuery, sortBy, direction, paginationLimit]);
+  }, [textQuery, paginationLimit]);
   const onScrollContent = e => {
     if (
       e.target.offsetHeight + e.target.scrollTop >=
@@ -53,7 +49,6 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
       ) {
         requestProductsList({
           textQuery,
-          sortBy: `${sortBy}:${direction}`,
           limit: paginationLimit,
           skip: products.data.skip + paginationLimit,
         });
@@ -62,14 +57,10 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
   };
   const resetFilters = () => {
     setTextQuery('');
-    setSortBy('name');
-    setDirection('asc');
     setShowFiltersModal(false);
   };
   const applyFilters = q => {
     setTextQuery(q.textQuery);
-    setSortBy(q.sortBy);
-    setDirection(q.direction);
     setShowFiltersModal(false);
   };
   return (
@@ -81,8 +72,6 @@ const ProductsPage = ({ products, requestProductsList, resetProductsList }) => {
           setShowFiltersModal(false);
         }}
         parentTextQuery={textQuery}
-        parentSortBy={sortBy}
-        parentDirection={direction}
       />
       <PageContainer onScroll={onScrollContent}>
         <Loading visible={products.loading} />
