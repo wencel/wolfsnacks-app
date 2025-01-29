@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@wojtekmaj/react-daterange-picker": "^3.0.0",
+    "@wojtekmaj/react-daterange-picker": "^6.0.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
     "enzyme": "^3.11.0",
